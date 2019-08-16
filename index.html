@@ -19,7 +19,7 @@
     <link rel="alternative" href="/atom.xml" title="Boucii&#39;s Blog" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/img/favicon.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
   <style type="text/css">
@@ -179,35 +179,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>顶层const（top-leval const）表示指针本身是个常量，底层const（low-leval const)表示指针所指对象是个常量。<br>更广泛地来说顶层const可以表示任意的常量对象。</p>
-<p>下面拿指针来说</p>
-<ul>
-<li>顶层const<br><strong>const在*右边表示是一个顶层const指针</strong>,指针本身的值不能改变</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int exa=0;</span><br><span class="line">int *const p=&amp; exa;//p是一个顶层const</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>底层const<br><strong>const在*左边表示是一个底层const指针</strong>，指针指向的内容不能改变</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const int *p1=&amp; exa;//p1是底层const</span><br><span class="line">int const *p2=&amp; exa;//p2等效于p1</span><br></pre></td></tr></table></figure>
-
-<p>以上是底层const的两种不同写法</p>
-<p>对于C++中提供的迭代器（iterator）本身可以近似的视为指针<br>将迭代器声明为const相当于一个顶层的指针</p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">std::vector&lt;int&gt; v;</span><br><span class="line">const std::vector&lt;int&gt;::iterator i=v.begin();</span><br></pre></td></tr></table></figure>
-
-<p>但是想要让迭代器里面保存的东西不发生改变，我们需要声明的是const_iterator</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">std::vector&lt;int&gt;::const_iterator i1=v.begin();</span><br></pre></td></tr></table></figure>
-
-<p>对于指针本身的值不能改变,有必要进行解释，因为指针内保存的是数据的地址，<br>所以指针本身的值不能改变，指的是他所指向的地址不能发生改变，但里面的数据是可以发生改变的</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">   int i = 1;</span><br><span class="line">int* const p = &amp;i;</span><br><span class="line">p++;//报错，表达式必须是可修改的左值</span><br><span class="line"></span><br><span class="line">   int i = 1;</span><br><span class="line">int* const p = &amp;i;</span><br><span class="line">*p = 2;//通过编译</span><br><span class="line"></span><br><span class="line">   std::vector&lt;int&gt; v;</span><br><span class="line">   const std::vector&lt;int&gt;::iterator i = v.begin();</span><br><span class="line">i = v.end();//报错，没有与i相匹配的=运算符；</span><br><span class="line"></span><br><span class="line">    std::vector&lt;int&gt; v;</span><br><span class="line">   std::vector&lt;int&gt;::iterator i = v.begin();</span><br><span class="line">i = v.end();//通过编译；</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>constexpr与顶层const<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">constexpr int *p=nullptr;//p是一个常量指针</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p>#####参考资料：C++primer 第五版，Effective C++ 第三版</p>
-
+        
+          <a class="article-more-a" href="/2019/08/16/const的辨析/#more">more >></a>
+        
       
 
       
@@ -270,19 +244,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
+        
+          <a class="article-more-a" href="/2019/08/12/hello-world/#more">more >></a>
+        
       
 
       
