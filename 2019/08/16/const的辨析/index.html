@@ -9,13 +9,14 @@
   <title>const的辨析 | Boucii&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="顶层const（top-leval const）表示指针本身是个常量，底层const（low-leval const)表示指针所指对象是个常量。更广泛地来说顶层const可以表示任意的常量对象。">
+<meta name="keywords" content="C++">
 <meta property="og:type" content="article">
 <meta property="og:title" content="const的辨析">
 <meta property="og:url" content="http://yoursite.com/2019/08/16/const的辨析/index.html">
 <meta property="og:site_name" content="Boucii&#39;s Blog">
 <meta property="og:description" content="顶层const（top-leval const）表示指针本身是个常量，底层const（low-leval const)表示指针所指对象是个常量。更广泛地来说顶层const可以表示任意的常量对象。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-16T05:22:35.943Z">
+<meta property="og:updated_time" content="2019-08-18T04:47:12.327Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="const的辨析">
 <meta name="twitter:description" content="顶层const（top-leval const）表示指针本身是个常量，底层const（low-leval const)表示指针所指对象是个常量。更广泛地来说顶层const可以表示任意的常量对象。">
@@ -58,10 +59,6 @@
 			<ul>
 			
 				<li><a href="/">主页</a></li>
-	        
-				<li><a href="/">评论</a></li>
-	        
-				<li><a href="/">学习笔记</a></li>
 	        
 			</ul>
 		</nav>
@@ -117,10 +114,6 @@
 			
 				
 			
-				
-			
-				
-			
 			
 			
 			<nav class="header-nav">
@@ -138,14 +131,10 @@
 			</nav>
 
 			<nav class="header-menu js-header-menu">
-				<ul style="width: 70%">
+				<ul style="width: 50%">
 				
 				
-					<li style="width: 33.333333333333336%"><a href="/">主页</a></li>
-		        
-					<li style="width: 33.333333333333336%"><a href="/">评论</a></li>
-		        
-					<li style="width: 33.333333333333336%"><a href="/">学习笔记</a></li>
+					<li style="width: 100%"><a href="/">主页</a></li>
 		        
 				</ul>
 			</nav>
@@ -210,8 +199,7 @@
 
 </li>
 </ul>
-<p>#####参考资料：C++primer 第五版，Effective C++ 第三版</p>
-
+<h5 id="参考资料：C-primer-第五版，Effective-C-第三版"><a href="#参考资料：C-primer-第五版，Effective-C-第三版" class="headerlink" title="参考资料：C++primer 第五版，Effective C++ 第三版"></a>参考资料：C++primer 第五版，Effective C++ 第三版</h5>
       
 
       
@@ -224,7 +212,7 @@
             <span class="tooltip-content">
               <span class="tooltip-text">
                 <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你看我的博客<i class="icon icon-quo-right"></i></p>
                   <div class="reward-box">
                     
                     
@@ -240,6 +228,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -304,6 +303,15 @@
   
 <nav id="article-nav">
   
+    <a href="/2019/08/18/格式化输入输出/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          格式化输入输出
+        
+      </div>
+    </a>
+  
   
     <a href="/2019/08/12/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">Hello World</div>
@@ -340,6 +348,22 @@
   
 
   
+  <div id="gitment-ctn"></div> 
+<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: "http://yoursite.com/2019/08/16/const的辨析/",
+  owner: 'Boucii',
+  repo: 'boucii.github.io',
+  oauth: {
+    client_id: '5706a284f1eeef16913d',
+    client_secret: '140159ef67e11729c7a03660716133209d248291',
+  },
+})
+gitment.render('gitment-ctn')
+</script>
+  
 
 
           </div>
@@ -370,7 +394,7 @@
 		toc_hide_index: true,
 		root: "/",
 		innerArchive: true,
-		showTags: false
+		showTags: true
 	}
 </script>
 
@@ -430,6 +454,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">C++</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>
