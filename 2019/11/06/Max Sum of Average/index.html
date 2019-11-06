@@ -6,15 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019/8 | Boucii&#39;s Blog</title>
+  <title>Max Sum of Average | Boucii&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Boucii&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/archives/2019/08/index.html">
+  <meta name="description" content="Max Sum of AverageGiven n pairs of object weights and values of wi and vi.Pick k out of them to maximize value per weight unit.">
+<meta name="keywords" content="Algorithm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Max Sum of Average">
+<meta property="og:url" content="http://yoursite.com/2019/11/06/Max Sum of Average/index.html">
 <meta property="og:site_name" content="Boucii&#39;s Blog">
+<meta property="og:description" content="Max Sum of AverageGiven n pairs of object weights and values of wi and vi.Pick k out of them to maximize value per weight unit.">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="http://yoursite.com/2019/11/06/Max%20Sum%20of%20Average/%5Cassets%5Cimg_1397.png">
+<meta property="og:image" content="http://yoursite.com/2019/11/06/Max%20Sum%20of%20Average/%5Cassets%5Cimg_1398.png">
+<meta property="og:updated_time" content="2019-11-06T10:20:51.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Boucii&#39;s Blog">
+<meta name="twitter:title" content="Max Sum of Average">
+<meta name="twitter:description" content="Max Sum of AverageGiven n pairs of object weights and values of wi and vi.Pick k out of them to maximize value per weight unit.">
+<meta name="twitter:image" content="http://yoursite.com/2019/11/06/Max%20Sum%20of%20Average/%5Cassets%5Cimg_1397.png">
   
     <link rel="alternative" href="/atom.xml" title="Boucii&#39;s Blog" type="application/atom+xml">
   
@@ -144,125 +152,205 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="max-Max Sum of Average" class="article article-type-max " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/18/格式化输入输出/" class="archive-article-date">
-  	<time datetime="2019-08-18T04:54:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-18</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/18/格式化输入输出/">格式化输入输出</a>
+    <h1 class="article-title" itemprop="name">
+      Max Sum of Average
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/11/06/Max Sum of Average/" class="archive-article-date">
+  	<time datetime="2019-11-06T10:12:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Max-Sum-of-Average"><a href="#Max-Sum-of-Average" class="headerlink" title="Max Sum of Average"></a>Max Sum of Average</h2><p>Given n pairs of object weights and values of wi and vi.Pick k out of them to maximize value per weight unit.</p>
+<a id="more"></a> 
+
+<p>exaple:<br>input:</p>
+<p>k=2;</p>
+<p>n=3;</p>
+<p>(w,v)= {{2,2},{5,3},{2,1}};  </p>
+<p>output:<br>0.75/choose no.1 and no.3;</p>
+<h3 id="The-first-idea-come-to-mind-is-to-sort-every-object-by-its-v-w-and-pick-the-first-k-out-But-sadly-it-is-wrong-And-it-will-be-explained-later-Example-given-above-can-proove-this"><a href="#The-first-idea-come-to-mind-is-to-sort-every-object-by-its-v-w-and-pick-the-first-k-out-But-sadly-it-is-wrong-And-it-will-be-explained-later-Example-given-above-can-proove-this" class="headerlink" title="The first idea come to mind is to sort every object by its v/w and pick the first k out.But sadly it is wrong.And it will be explained later.(Example given above can proove this)."></a>The first idea come to mind is to sort every object by its v/w and pick the first k out.But sadly it is wrong.And it will be explained later.(Example given above can proove this).</h3><p>Than how should we solve this?<br>assume r=sum(vi)/sum(wi);<br>r*sum(wi)=sum(vi); </p>
+<p><img src="%5Cassets%5Cimg_1397.png" alt="avatar"></p>
+<p>fix sum(w)and sum(v);r is the gradient of the line.and the higher it is,the more correct answer we’ll get.<br>Consider we now have the r at maximized with n objects(n&lt;k)<br>of gradient of vc/wc,if we want to add a pair of wa and va,we will have the gradient transfered to vc+va/wa+wc; And this expression determines whether a pair of(v,w)helps to enlarge the answer. This is also why its not sum(v)/sum(w) determines the answer.<br><img src="%5Cassets%5Cimg_1398.png" alt="avatar"></p>
+<h3 id="So-here-comes-my-algorithm-I-can’t-garantee-its-100-correct-and-you’re-welcome-to-correct-it"><a href="#So-here-comes-my-algorithm-I-can’t-garantee-its-100-correct-and-you’re-welcome-to-correct-it" class="headerlink" title="So here comes my algorithm(I can’t garantee its 100% correct and you’re welcome to correct it ):"></a>So here comes my algorithm(I can’t garantee its 100% correct and you’re welcome to correct it ):</h3><p>we can assume the first object we pick has the largest v/w;</p>
+<p>then we’ll pick the second,we calculate every pair of vw with the current vw of vc+va/wa+wc.<br>loop till all k pairs are selected.</p>
+<p>Above is just a sucky algorithm,but it at least explains why we cant simply sort v/w;</p>
+<h3 id="now-we’ll-use-method-of-bisection-to-actually-work-it-out"><a href="#now-we’ll-use-method-of-bisection-to-actually-work-it-out" class="headerlink" title="now we’ll use method of bisection to actually work it out."></a>now we’ll use method of bisection to actually work it out.</h3><p>assume c(x):whether x is larger than sumv/sumw.</p>
+<p>then the question turns into find out the largest x;<br>and namely,if the objects we have picked fulfill</p>
+<p>sum(vi)/sum(wi)&gt;=x (vw are the objects we picked)</p>
+<p>than namely,</p>
+<p>sum(vi-x*wi)&gt;=0?</p>
+<p>now we can sort all objects in order of (vi-x*wi)</p>
+<p>code :</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">//input</span><br><span class="line">int n,int k;</span><br><span class="line">int w[n],v[n];</span><br><span class="line"></span><br><span class="line">double y[n];//save sum(vi-x*wi);</span><br><span class="line"></span><br><span class="line">bool c(double x)&#123;</span><br><span class="line">    for(int i=0;i&lt;n;i++)&#123;</span><br><span class="line">        y[i]=v[i]-x*w[i];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">sort(y,y+n);</span><br><span class="line"></span><br><span class="line">double sum=0;</span><br><span class="line">    for(int i=0;i&lt;k;i++)&#123;</span><br><span class="line">        sum+=y[n-1-i];</span><br><span class="line">    &#125;</span><br><span class="line">return sum&gt;=0;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void solve()&#123;</span><br><span class="line">    double lb=0;ub=INF;//left boundary</span><br><span class="line">    for(int i=0;i&lt;100;i++)&#123;</span><br><span class="line">        double mid=(lb+rb)/2</span><br><span class="line">        if (c(mid))lb=mid;</span><br><span class="line">        else ub=mid;</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;%.2f/n&quot;,ub);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你看我的博客<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Algorithm</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/11/06/Max Sum of Average/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/16/const的辨析/" class="archive-article-date">
-  	<time datetime="2019-08-16T05:12:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-16</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/09/23/Multithread-Java/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Multithread Java</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/16/const的辨析/">const的辨析</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/12/hello-world/" class="archive-article-date">
-  	<time datetime="2019-08-12T02:13:32.407Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/12/hello-world/">Hello World</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
+  <div id="gitment-ctn"></div> 
+<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: "http://yoursite.com/2019/11/06/Max Sum of Average/",
+  owner: 'Boucii',
+  repo: 'boucii.github.io',
+  oauth: {
+    client_id: '5706a284f1eeef16913d',
+    client_secret: '140159ef67e11729c7a03660716133209d248291',
+  },
+})
+gitment.render('gitment-ctn')
+</script>
+  
 
 
           </div>
@@ -286,8 +374,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
