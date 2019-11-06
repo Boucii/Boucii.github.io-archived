@@ -6,20 +6,15 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>格式化输入输出 | Boucii&#39;s Blog</title>
+  <title>Tag: Algorithm | Boucii&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在C中，通过格式化输出函数printf以及格式控制字符串可以很轻易的控制输出内容的格式化控制，但是在C++中，我们需要用到标准库中的操纵符(manipulator).">
-<meta name="keywords" content="C++">
-<meta property="og:type" content="article">
-<meta property="og:title" content="格式化输入输出">
-<meta property="og:url" content="http://yoursite.com/2019/08/18/格式化输入输出/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Boucii&#39;s Blog">
+<meta property="og:url" content="http://yoursite.com/tags/Algorithm/index.html">
 <meta property="og:site_name" content="Boucii&#39;s Blog">
-<meta property="og:description" content="在C中，通过格式化输出函数printf以及格式控制字符串可以很轻易的控制输出内容的格式化控制，但是在C++中，我们需要用到标准库中的操纵符(manipulator).">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-18T18:00:23.758Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="格式化输入输出">
-<meta name="twitter:description" content="在C中，通过格式化输出函数printf以及格式控制字符串可以很轻易的控制输出内容的格式化控制，但是在C++中，我们需要用到标准库中的操纵符(manipulator).">
+<meta name="twitter:title" content="Boucii&#39;s Blog">
   
     <link rel="alternative" href="/atom.xml" title="Boucii&#39;s Blog" type="application/atom+xml">
   
@@ -149,236 +144,60 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-格式化输入输出" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      格式化输入输出
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2019" class="archive-year">2019</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-max">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2019/11/06/Max Sum of Average/" class="archive-article-date">
+  	<time datetime="2019-11-06T10:12:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-06</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2019/11/06/Max Sum of Average/">Max Sum of Average</a>
     </h1>
   
 
-        
-        <a href="/2019/08/18/格式化输入输出/" class="archive-article-date">
-  	<time datetime="2019-08-18T04:54:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>  在C中，通过格式化输出函数printf以及格式控制字符串可以很轻易的控制输出内容的格式化控制，但是在C++中，我们需要用到标准库中的<strong>操纵符(manipulator)</strong>.</p>
-<a id="more"></a>
-<p> C++中，一个操纵符是一个对象或者函数，会影响流的状态。</p>
-<h2 id="指定整数值的进制"><a href="#指定整数值的进制" class="headerlink" title="指定整数值的进制"></a>指定整数值的进制</h2><p>默认情况下 整数值输入输出为十进制。我们可以用hex,oct,dec将其改为十六进制，八进制和十进制。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cout &lt;&lt;&quot;default:&quot;&lt;&lt;100&lt;&lt;&quot; &quot;&lt;&lt; endl;</span><br><span class="line">cout &lt;&lt;&quot;hex:&quot;&lt;&lt;hex&lt;&lt;100&lt;&lt;&quot; &quot;&lt;&lt; endl;</span><br><span class="line">cout &lt;&lt;&quot;octal:&quot;&lt;&lt;oct&lt;&lt;100&lt;&lt;&quot; &quot;&lt;&lt; endl;</span><br><span class="line">cout &lt;&lt;&quot;decimal:&quot;&lt;&lt;dec&lt;&lt;100&lt;&lt;&quot; &quot;&lt;&lt; endl;</span><br></pre></td></tr></table></figure>
-
-<p>编译执行后，输出如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">default:100</span><br><span class="line">hex:64</span><br><span class="line">octal:144</span><br><span class="line">decimal:100</span><br></pre></td></tr></table></figure>
-
-<h2 id="在输出中指出进制"><a href="#在输出中指出进制" class="headerlink" title="在输出中指出进制"></a>在输出中指出进制</h2><p>在默认流输出中，系统不会为我们显式的告诉我们打印的数值是几进制；例如10，我们不知道他是十进制还是八进制还是十六进制。<br>这时我们应该使用<strong>showbase</strong>操纵符，恢复默认状态则使用<strong>noshowbase</strong>操纵符。</p>
-<ul>
-<li>0x表示16进制</li>
-<li>0表示8进制</li>
-<li>无符号表示十进制</li>
-</ul>
-<p>例如，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cout&lt;&lt;showbase;</span><br><span class="line">cout &lt;&lt;&quot;default:&quot;&lt;&lt;100&lt;&lt;&quot; &quot;&lt;&lt; endl;</span><br><span class="line">cout &lt;&lt;&quot;hex:&quot;&lt;&lt;hex&lt;&lt;100&lt;&lt;&quot; &quot;&lt;&lt; endl;</span><br><span class="line">cout &lt;&lt;&quot;octal:&quot;&lt;&lt;oct&lt;&lt;100&lt;&lt;&quot; &quot;&lt;&lt; endl;</span><br><span class="line">cout &lt;&lt;&quot;decimal:&quot;&lt;&lt;dec&lt;&lt;100&lt;&lt;&quot; &quot;&lt;&lt; endl;</span><br></pre></td></tr></table></figure>
-
-<p>输出结果：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">default:100</span><br><span class="line">hex:0x64</span><br><span class="line">octal:0144</span><br><span class="line">decimal:100</span><br></pre></td></tr></table></figure>
-
-<h2 id="控制浮点数格式"><a href="#控制浮点数格式" class="headerlink" title="控制浮点数格式"></a>控制浮点数格式</h2><ul>
-<li>控制浮点数精度</li>
-<li>数值是打印为十六进制，定点十进制还是科学记数法</li>
-<li>对于没有小数部分的数是否打印小数点</li>
-</ul>
-<p>值得注意的是，浮点数会按照精度四舍五入而不是截断</p>
-<p>我们使用<strong>precision</strong>对象和<strong>setprecision</strong>操纵符来改变精度。（后者在头文件iomanip中）<br>precision对象是重载的，一个接受一个int值并设置为当前精度，另一个不接收参数并返回当前精度值。<br>如cout.precision()返回当前精度值，cout.(12)将精度设为12.</p>
-<p>使用<strong>scientific</strong>指定浮点数计数法为科学记数法，<strong>fixed</strong>改变为定点十进制，<strong>hexfliat</strong>为十六进制，<strong>default</strong>为默认（自动选择）</p>
-<p>当一个float小数部分为0时，使用<strong>showpoint</strong>和<strong>noshowpoint</strong>强制打印和不打印小数点</p>
-<p>注意：</p>
-<ul>
-<li>在默认情况下，精度控制除小数点外所有数字的个数</li>
-<li>加了fixed后固定小数点，精度控制小数位数</li>
-<li>cout.unsetf( ios::fixed );用此句去掉fixed，精度恢复为最开始的情况</li>
-</ul>
-<h2 id="输出补白"><a href="#输出补白" class="headerlink" title="输出补白"></a>输出补白</h2><p>setw（int）指定下一个数字或字符串的最小空间<br>left表示左对齐<br>right表示右对齐<br>internal控制负数的符号位，使其左对齐符号，右对齐值，中间填满空格。<br>setfill（char）指定一个字符代替空格补白输出。</p>
-<h2 id="是否输入时忽略空白字符"><a href="#是否输入时忽略空白字符" class="headerlink" title="是否输入时忽略空白字符"></a>是否输入时忽略空白字符</h2><p>用noskipws和skipws控制是否跳过空白字符（空格，制表，换行，换纸，回车）</p>
-<h2 id="在布尔值的文本和数值表示间切换"><a href="#在布尔值的文本和数值表示间切换" class="headerlink" title="在布尔值的文本和数值表示间切换"></a>在布尔值的文本和数值表示间切换</h2><p>(函数)<br>boolalpha<br>noboolalpha</p>
-<h2 id="控制是否将-号与非负数一同使用"><a href="#控制是否将-号与非负数一同使用" class="headerlink" title="控制是否将 + 号与非负数一同使用"></a>控制是否将 + 号与非负数一同使用</h2><p>(函数)<br>showpos<br>noshowpos</p>
-<h2 id="控制是否跳过输入上的前导空白符"><a href="#控制是否跳过输入上的前导空白符" class="headerlink" title="控制是否跳过输入上的前导空白符"></a>控制是否跳过输入上的前导空白符</h2><p>(函数)<br>skipws<br>noskipws</p>
-<h2 id="控制一些输出操作是否使用大写字母"><a href="#控制一些输出操作是否使用大写字母" class="headerlink" title="控制一些输出操作是否使用大写字母"></a>控制一些输出操作是否使用大写字母</h2><p>(函数)<br>uppercase对十六进制值中打印0X,在科学计数法中打印E<br>nouppercase对十六进制值中打印0x,在科学计数法中打印e</p>
-<h2 id="控制是否每次操作后冲洗输出"><a href="#控制是否每次操作后冲洗输出" class="headerlink" title="控制是否每次操作后冲洗输出"></a>控制是否每次操作后冲洗输出</h2><p>(函数)<br>unitbuf<br>nounitbuf</p>
-<h2 id="刷新缓冲区"><a href="#刷新缓冲区" class="headerlink" title="刷新缓冲区"></a>刷新缓冲区</h2><p>flush</p>
-<p>等等，完整的操纵符列表详见 <a href="https://zh.cppreference.com/w/cpp/io/manip" target="_blank" rel="noopener">https://zh.cppreference.com/w/cpp/io/manip</a></p>
-<h4 id="参考资料：C-primer第五版"><a href="#参考资料：C-primer第五版" class="headerlink" title="参考资料：C++primer第五版"></a>参考资料：C++primer第五版</h4><pre><code>cppreference.com </code></pre>
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你看我的博客<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Algorithm</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/08/18/格式化输入输出/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2019/09/23/Multithread-Java/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Multithread Java
-        
-      </div>
-    </a>
   
   
-    <a href="/2019/08/16/const的辨析/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">const的辨析</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
-  <div id="gitment-ctn"></div> 
-<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
-<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
-<script>
-var gitment = new Gitment({
-  id: "http://yoursite.com/2019/08/18/格式化输入输出/",
-  owner: 'Boucii',
-  repo: 'boucii.github.io',
-  oauth: {
-    client_id: '5706a284f1eeef16913d',
-    client_secret: '140159ef67e11729c7a03660716133209d248291',
-  },
-})
-gitment.render('gitment-ctn')
-</script>
-  
+    
 
 
           </div>
@@ -402,9 +221,9 @@ gitment.render('gitment-ctn')
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,
