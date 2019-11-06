@@ -16,13 +16,13 @@
 <meta property="og:site_name" content="Boucii&#39;s Blog">
 <meta property="og:description" content="Max Sum of AverageGiven n pairs of object weights and values of wi and vi.Pick k out of them to maximize value per weight unit.">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="h:%5Cblog%5Csource%5Cassets%5Cimg_1397.png">
-<meta property="og:image" content="h:%5Cblog%5Csource%5Cassets%5Cimg_1398.png">
-<meta property="og:updated_time" content="2019-11-06T10:17:20.619Z">
+<meta property="og:image" content="http://yoursite.com/2019/11/06/Max%20Sum%20of%20Average/%5Cassets%5Cimg_1397.png">
+<meta property="og:image" content="http://yoursite.com/2019/11/06/Max%20Sum%20of%20Average/%5Cassets%5Cimg_1398.png">
+<meta property="og:updated_time" content="2019-11-06T10:20:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Max Sum of Average">
 <meta name="twitter:description" content="Max Sum of AverageGiven n pairs of object weights and values of wi and vi.Pick k out of them to maximize value per weight unit.">
-<meta name="twitter:image" content="h:%5Cblog%5Csource%5Cassets%5Cimg_1397.png">
+<meta name="twitter:image" content="http://yoursite.com/2019/11/06/Max%20Sum%20of%20Average/%5Cassets%5Cimg_1397.png">
   
     <link rel="alternative" href="/atom.xml" title="Boucii&#39;s Blog" type="application/atom+xml">
   
@@ -180,16 +180,13 @@
 <p>n=3;</p>
 <p>(w,v)= {{2,2},{5,3},{2,1}};  </p>
 <p>output:<br>0.75/choose no.1 and no.3;</p>
-<p>The first idea come to mind is to sort every object by its v/w and pick the first k out.But sadly it is wrong.And it will be explained later.(Example given above can proove this).</p>
-<p>Than how should we solve this?<br>assume r=sum(vi)/sum(wi);<br>r*sum(wi)=sum(vi); </p>
-<p><img src="H:%5Cblog%5Csource%5Cassets%5Cimg_1397.png" alt="avatar"></p>
-<p>fix sum(w)and sum(v);r is the gradient of the line.and the higher it is,the more correct answer we’ll get.<br>Consider we now have the r at maximized with n objects(n&lt;k)<br>of gradient of vc/wc,if we want to add a pair of wa and va,we will have the gradient transfered to vc+va/wa+wc; And this expression determines whether a pair of(v,w)helps to enlarge the answer. This is also why its not sum(v)/sum(w) determines the answer.<br><img src="H:%5Cblog%5Csource%5Cassets%5Cimg_1398.png" alt="avatar"></p>
-<p>So here comes my algorithm(I can’t garantee its 100% correct and you’re welcome to correct it ):</p>
-<p>we can assume the first object we pick has the largest v/w;</p>
+<h3 id="The-first-idea-come-to-mind-is-to-sort-every-object-by-its-v-w-and-pick-the-first-k-out-But-sadly-it-is-wrong-And-it-will-be-explained-later-Example-given-above-can-proove-this"><a href="#The-first-idea-come-to-mind-is-to-sort-every-object-by-its-v-w-and-pick-the-first-k-out-But-sadly-it-is-wrong-And-it-will-be-explained-later-Example-given-above-can-proove-this" class="headerlink" title="The first idea come to mind is to sort every object by its v/w and pick the first k out.But sadly it is wrong.And it will be explained later.(Example given above can proove this)."></a>The first idea come to mind is to sort every object by its v/w and pick the first k out.But sadly it is wrong.And it will be explained later.(Example given above can proove this).</h3><p>Than how should we solve this?<br>assume r=sum(vi)/sum(wi);<br>r*sum(wi)=sum(vi); </p>
+<p><img src="%5Cassets%5Cimg_1397.png" alt="avatar"></p>
+<p>fix sum(w)and sum(v);r is the gradient of the line.and the higher it is,the more correct answer we’ll get.<br>Consider we now have the r at maximized with n objects(n&lt;k)<br>of gradient of vc/wc,if we want to add a pair of wa and va,we will have the gradient transfered to vc+va/wa+wc; And this expression determines whether a pair of(v,w)helps to enlarge the answer. This is also why its not sum(v)/sum(w) determines the answer.<br><img src="%5Cassets%5Cimg_1398.png" alt="avatar"></p>
+<h3 id="So-here-comes-my-algorithm-I-can’t-garantee-its-100-correct-and-you’re-welcome-to-correct-it"><a href="#So-here-comes-my-algorithm-I-can’t-garantee-its-100-correct-and-you’re-welcome-to-correct-it" class="headerlink" title="So here comes my algorithm(I can’t garantee its 100% correct and you’re welcome to correct it ):"></a>So here comes my algorithm(I can’t garantee its 100% correct and you’re welcome to correct it ):</h3><p>we can assume the first object we pick has the largest v/w;</p>
 <p>then we’ll pick the second,we calculate every pair of vw with the current vw of vc+va/wa+wc.<br>loop till all k pairs are selected.</p>
 <p>Above is just a sucky algorithm,but it at least explains why we cant simply sort v/w;</p>
-<p>now we’ll use method of bisection to actually work it out.</p>
-<p>assume c(x):whether x is larger than sumv/sumw.</p>
+<h3 id="now-we’ll-use-method-of-bisection-to-actually-work-it-out"><a href="#now-we’ll-use-method-of-bisection-to-actually-work-it-out" class="headerlink" title="now we’ll use method of bisection to actually work it out."></a>now we’ll use method of bisection to actually work it out.</h3><p>assume c(x):whether x is larger than sumv/sumw.</p>
 <p>then the question turns into find out the largest x;<br>and namely,if the objects we have picked fulfill</p>
 <p>sum(vi)/sum(wi)&gt;=x (vw are the objects we picked)</p>
 <p>than namely,</p>
@@ -447,11 +444,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
               </li>
              
               <li class="article-tag-list-item">
