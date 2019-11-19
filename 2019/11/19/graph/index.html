@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>集合的整数表示 | Boucii&#39;s Blog</title>
+  <title>graph initiation and prim and DijKstra | Boucii&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="集合的整数表示-尽量的详解 本文原文章自《挑战程序设计竞赛》 - p156 - 专栏: 集合的整数表示部分来自于 https://blog.csdn.net/sky_zdk/article/details/60320721解析为原创  ###在程序中表示集合的方法有很多种，当元素数比较少时，像这样用二进制码表示比较方便。集合{0， 1， …， n-1} 的子集 S 可以用如下的方式编码成整数。">
+  <meta name="description" content="yeah this is my data-structure homework ,but i really put some efforts.so id like to post it on my blog here.code: // graph.cpp : This file contains the &amp;apos;main&amp;apos; function. Program execution be">
 <meta name="keywords" content="Algorithm">
 <meta property="og:type" content="article">
-<meta property="og:title" content="集合的整数表示">
-<meta property="og:url" content="http://yoursite.com/2019/11/10/集合的整数表示(位运算)/index.html">
+<meta property="og:title" content="graph initiation and prim and DijKstra">
+<meta property="og:url" content="http://yoursite.com/2019/11/19/graph/index.html">
 <meta property="og:site_name" content="Boucii&#39;s Blog">
-<meta property="og:description" content="集合的整数表示-尽量的详解 本文原文章自《挑战程序设计竞赛》 - p156 - 专栏: 集合的整数表示部分来自于 https://blog.csdn.net/sky_zdk/article/details/60320721解析为原创  ###在程序中表示集合的方法有很多种，当元素数比较少时，像这样用二进制码表示比较方便。集合{0， 1， …， n-1} 的子集 S 可以用如下的方式编码成整数。">
+<meta property="og:description" content="yeah this is my data-structure homework ,but i really put some efforts.so id like to post it on my blog here.code: // graph.cpp : This file contains the &amp;apos;main&amp;apos; function. Program execution be">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-11-17T02:09:33.807Z">
+<meta property="og:updated_time" content="2019-11-19T14:29:39.907Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="集合的整数表示">
-<meta name="twitter:description" content="集合的整数表示-尽量的详解 本文原文章自《挑战程序设计竞赛》 - p156 - 专栏: 集合的整数表示部分来自于 https://blog.csdn.net/sky_zdk/article/details/60320721解析为原创  ###在程序中表示集合的方法有很多种，当元素数比较少时，像这样用二进制码表示比较方便。集合{0， 1， …， n-1} 的子集 S 可以用如下的方式编码成整数。">
+<meta name="twitter:title" content="graph initiation and prim and DijKstra">
+<meta name="twitter:description" content="yeah this is my data-structure homework ,but i really put some efforts.so id like to post it on my blog here.code: // graph.cpp : This file contains the &amp;apos;main&amp;apos; function. Program execution be">
   
     <link rel="alternative" href="/atom.xml" title="Boucii&#39;s Blog" type="application/atom+xml">
   
@@ -149,57 +149,181 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-集合的整数表示(位运算)" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-graph" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      集合的整数表示
+      graph initiation and prim and DijKstra
     </h1>
   
 
         
-        <a href="/2019/11/10/集合的整数表示(位运算)/" class="archive-article-date">
-  	<time datetime="2019-11-10T13:09:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-10</time>
+        <a href="/2019/11/19/graph/" class="archive-article-date">
+  	<time datetime="2019-11-19T14:23:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-19</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="集合的整数表示-尽量的详解"><a href="#集合的整数表示-尽量的详解" class="headerlink" title="集合的整数表示-尽量的详解"></a>集合的整数表示-尽量的详解</h2><blockquote>
-<p>本文原文章自《挑战程序设计竞赛》 - p156 - 专栏: 集合的整数表示<br>部分来自于 <a href="https://blog.csdn.net/sky_zdk/article/details/60320721" target="_blank" rel="noopener">https://blog.csdn.net/sky_zdk/article/details/60320721</a><br>解析为原创</p>
-</blockquote>
-<p>###<br>在程序中表示集合的方法有很多种，当元素数比较少时，像这样用二进制码表示比较方便。集合{0， 1， …， n-1} 的子集 S 可以用如下的方式编码成整数。</p>
-<a id="more"></a>  
+        <p>yeah this is my data-structure homework ,but i really put some efforts.so id like to post it on my blog here.<br>code:</p>
+<pre><code>// graph.cpp : This file contains the &apos;main&apos; function. Program execution begins and ends there.
+//
 
-<p>就是说，表示一个集合，可以将这个集合映射为一个n位二进制数</p>
-<blockquote>
-<p>比如一个集合(5,8,3,6,78,45,33,22)<br>11111111代表这个全集，而10100000代表(5,3)这个子集(二进制中1代表这个子集中有全集中相应位置的数字)</p>
-</blockquote>
-<p>####<br>举例（1，2，3，4，5）-&gt;11111</p>
-<ol>
-<li>空集Ø ————————————————————&gt; 0</li>
-<li>只含有第 i 个元素的集合{ i } ———————————-&gt; 1 &lt;&lt; i<br>将1左移i位,用以上的例子来说，假设只有第二位就是00100即（3），注意从0算起</li>
-<li>含有全部 n 个元素的集合{0， 1， …， n-1} ————–&gt; (1 &lt;&lt; n) - 1<br>1&lt;<n->1000000 再-1=&gt;0111111=111111</n-></li>
-<li>判断第 i 个元素是否属于集合 S ——————————&gt; if (S &gt;&gt; i &amp; 1)<br>将s右移i位即最低位就是该元素，在于1且运算</li>
-<li>向集合中加入第 i 个元素 S υ { i } —————————-&gt; S | 1 &lt;&lt; i<br>将1左移i位到位置上检查有没有元素，没有的话变成1</li>
-<li>从集合中删去第 i 个元素 S \ { i } —————————–&gt; S &amp; ~ (1 &lt;&lt; i)<br>与非，有的话1与非10反之为0</li>
-<li>集合 S 和 T 的并集 S υ T ————————————-&gt; S | T<br>按位或</li>
-<li>集合 S 和 T的交集 S ∩ T ————————————–&gt; S &amp; T<br>按位且<br>####<br>枚举{0, 1, …, n-1}的全部子集<br>for (int S = 0 ; S &lt; 1 &lt;&lt; n; S++ ) {<br> // 对子集的处理<br>}</li>
-</ol>
-<p>S &lt; 1 &lt;&lt; n 相当于将1左移n位，（见上），然后这个数刚好比s为全1要大1，s&lt;1即满足循环</p>
-<p>注意&lt;&lt;优先级较高</p>
-<blockquote>
-<p>接下来介绍一下如何枚举某个集合sup的子集。这里sup是一个二进制码，其本身也是某个集合的子集。例如给定了01101101这样的集合，要将01100000或者00101101等子集枚举出来。前面是从0开始不断加1来枚举出了全部的子集。此时，sub+1并不一定是sup的子集。而(sup+1)&amp;sup虽然是sup的子集，可是很有可能依旧是sub，没有任何改变。<br>所以我们要反过来，从sup开始每次减1，直到0为止。由于sub-1并不一定是sup 的子集，所以我们把它与sup进行按位与&amp;，这样的话就可以将sup所有的子集按照降序列举出来。(sub-1)&amp;sup会忽略sup中的0而从sub中减去1。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int sub = sup; //子集</span><br><span class="line">do&#123;</span><br><span class="line">sub = (sub - 1) &amp; sup;</span><br><span class="line">&#125;while(sub != sup); //处理完0以后，会有-1&amp;sup = sup;</span><br></pre></td></tr></table></figure>
+#include &lt;iostream&gt;
+#include&lt;vector&gt;
+#include&lt;set&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+class graph {
+public:
+    vector&lt;vector&lt;int&gt;&gt; g;
+    bool directedmap;
+    int num=0;
+    void initndgraph() {
+        cout &lt;&lt; &quot;the number of nodes:&quot;;
+        int n;
 
-<p>最后我们介绍一下枚举{0,1,…,n-1}所包含的所有大小为k的子集的方法。通过使用位运算，我们可以像如下代码所示简单地按照字典序升序地枚举出所有满足条件的二进制码。<br>int comb = (1&lt;&lt;k) - 1;<br>while(comb &lt; 1&lt;&lt;n)<br>{<br>    //在这里进行针对组合的处理<br>    int x = comb &amp; -comb, y = comb + x;<br>    comb = ((comb &amp; -y) / x &gt;&gt; 1) | y;<br>}<br>对于非零的整数， x&amp;(-x)的值就是将其最低位的1独立出来后的值，这部部分内容在树状数组部分有详细讲解，这里就不赘述了。</p>
-<p>将最低位的1取出后，设它为x。那么通过计算y = comb + x，就将comb从最低位的1开始的连续的1都置零了。我们来比较一下<del>y和comb。在comb中加上x后没有变化的位，在</del>y中全都取相反的值。而最低位1开始的连续区间在<del>y中依然是1，区间左侧的那个0在</del>y中依然也是0.于是通过计算z = comb &amp; ~y 就得到了最低位1开始的连续区间。比如：如果comb = 0101110，则 x = 0000010，y = 0110000，z = 0001110.<br>同时，y也恰好是第二步要求的值。那么首先将z不断右移，直到最低位为1，这通过计算z/x即可完成。这样再将z/x右移1位，就得到了第三步要求的值。这样我们就求得了comb之后的下一个二进制列。因为是从n个元素的集合中进行选择，所以comb的值不能大于等于<br>1*2^n，如此一来，就完成了大小为k的所有子集的枚举。</p>
-<p>除了上述例子之外，还可以利用位运算完成满足其他条件的集合的枚举，例如不包含相邻元素的集合等。</p>
+        cin &gt;&gt;n;
+        num = n;
+        for (int i = 0; i &lt; n; i++) {
+            g.push_back(*new vector&lt;int&gt;(n));
+        }
+        for (int i = 0; i &lt; n; i++) {
+            for (int j = 0; j &lt; n; j++) {
+                g[i][j] = 9999;
+            }
+        }
+        cout &lt;&lt; &quot;enter the number of edges:&quot;;
+        cin &gt;&gt; n;
+        cout &lt;&lt; &quot;enter the edges and the weight in tri-pairs like 1-&gt;2 wights 3: 1 2 3&quot;;
+        for (int i = 0; i &lt; n; i++) {
+            int a1, a2, a3;
+            cin &gt;&gt; a1 &gt;&gt; a2 &gt;&gt; a3;
+            g[a1][a2] = a3;
+            g[a2][a1] = a3;
+        }
+        directedmap = false;
+
+    }
+    void initdgraph(){
+        cout &lt;&lt; &quot;the number of nodes:&quot;;
+        int n;
+
+        cin &gt;&gt; n;
+        num = n;
+        for (int i = 0; i &lt; n; i++) {
+            g.push_back(*new vector&lt;int&gt;(n));
+        }
+        for (int i = 0; i &lt; n; i++) {
+            for (int j = 0; j &lt; n; j++) {
+                g[i][j] = 9999;
+            }
+        }
+        cout &lt;&lt; &quot;enter the number of edges&quot;;
+        cin &gt;&gt; n;
+        cout &lt;&lt; &quot;enter the edges and the weight in tri-pairs like 1-&gt;2 wights 3: 1 2 3&quot;;
+        for (int i = 0; i &lt; n; i++) {
+            int a1, a2, a3;
+            cin &gt;&gt; a1 &gt;&gt; a2 &gt;&gt; a3;
+            g[a1][a2] = a3;
+        }
+        directedmap = true;
+
+    }
+    vector&lt;pair&lt;int, int&gt;&gt;  ndprim(int a) {
+        if (a &gt; num - 1) {
+            cout &lt;&lt; &quot;out of boundary&quot;;
+            exit(-1);
+        }
+        vector&lt;pair&lt;int, int&gt;&gt; out;
+        set&lt;int&gt; nodes;
+        vector&lt;vector&lt;int&gt;&gt; temp = g;
+        nodes.insert(a);
+        pair&lt;int, int&gt; t;
+        int min = 9999;
+        while (nodes.size() != num) {
+            min = 9999;
+            for (auto a : nodes) {
+                for (int i = 0; i &lt; num; i++) {
+                    if (temp[a][i] &lt; min) {
+                        min = temp[a][i];
+                        t = { a,i };
+                    }
+                }
+                /*for (int i = 0; i &lt; num; i++) {
+                    if (temp[i][a] &lt; min){
+                        min = g[i][a];
+                    t = { i,a };}
+                }*///directed map usage
+
+            }
+            out.push_back({ t.first,t.second });
+            nodes.insert(t.first);
+            nodes.insert(t.second);
+            temp[t.first][t.second] = 9999;
+            temp[t.second][t.first] = 9999;
+
+        }
+        return out;
+    }
+    vector&lt;int&gt; DijKstra(int a) {
+        vector&lt;int&gt; res(num);
+        set&lt;int&gt; nodes;
+        int minu = 9999;
+        vector&lt;vector&lt;int&gt;&gt; temp = g;
+
+        nodes.insert(a);
+        for (int i = 0; i &lt; num; i++) {
+            res[i] = 9999;
+        }
+        res[a] = 0;//初始化
+
+
+
+        pair&lt;int, int&gt; t;
+        while (nodes.size() != num) {
+            minu = 9999;
+            for (auto a : nodes) {
+                for (int i = 0; i &lt; num; i++) {
+                    if (temp[a][i] &lt; minu) {
+                        minu = temp[a][i];
+                        t = { a,i };
+                    }
+                }
+            }
+            nodes.insert(t.first);
+            nodes.insert(t.second);
+            res[t.second] = min(temp[t.first][t.second]+res[t.first],res[t.second]);
+            temp[t.first][t.second] = 9999;//find a new node and insert it to the node set
+            for (auto a : nodes) {
+                for (auto b : nodes) {
+                    temp[a][b] = 9999;
+                }
+            }//clear all the edges among the node set
+
+
+
+                minu = 9999;
+                for (int i = 0; i &lt; num; i++) {
+                    res[i] = min(res[i], res[t.second] + temp[t.second][i]);
+                }
+
+        }
+        return res;
+    }
+
+};
+int main()
+{//0 2 1 0 1 4 2 1 2 2 3 4 2 4 1 3 4 1
+    graph* g=new graph;
+    g-&gt;initdgraph();
+    auto a=g-&gt;DijKstra(0);
+    int b=9;
+}</code></pre><p>main is just a test main.<br>note:<br>dija is just for directed,and prim is for non-directed ,if you want the other cases,try to figure it out by referencing to each other,they are quite the same anyway.(both used nodes and t);</p>
 
       
 
@@ -290,7 +414,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/11/10/集合的整数表示(位运算)/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/11/19/graph/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -304,18 +428,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/11/17/二叉树的图形化显示算法/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          二叉树的图形化显示算法
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/11/09/PathSumPT-1/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">PathSumPT.1</div>
+    <a href="/2019/11/17/二叉树的图形化显示算法/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">二叉树的图形化显示算法</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -354,7 +469,7 @@
 <script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 var gitment = new Gitment({
-  id: "http://yoursite.com/2019/11/10/集合的整数表示(位运算)/",
+  id: "http://yoursite.com/2019/11/19/graph/",
   owner: 'Boucii',
   repo: 'boucii.github.io',
   oauth: {
