@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Boucii&#39;s Blog">
 <meta property="og:description" content="上一次写了leetcode的二叉树调试模板，这次写一个二叉树的图形化显示算法方便调试总共有三种，注释掉了两种，第一种不打/或者\，第二种将这两个符号分行打（不过还没有完全处理好对齐，期待你的建议，第三种没有注释掉的这种，将/\就直接打到val前面了。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-11-17T16:35:46.352Z">
+<meta property="og:updated_time" content="2019-11-19T15:13:43.497Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="二叉树的图形化显示算法">
 <meta name="twitter:description" content="上一次写了leetcode的二叉树调试模板，这次写一个二叉树的图形化显示算法方便调试总共有三种，注释掉了两种，第一种不打/或者\，第二种将这两个符号分行打（不过还没有完全处理好对齐，期待你的建议，第三种没有注释掉的这种，将/\就直接打到val前面了。">
@@ -172,22 +172,137 @@
         <p>上一次写了leetcode的二叉树调试模板，这次写一个二叉树的图形化显示算法方便调试<br>总共有三种，注释掉了两种，第一种不打/或者\，第二种将这两个符号分行打（不过还没有完全处理好对齐，期待你的建议，第三种没有注释掉的这种，将/\就直接打到val前面了。</p>
 <a id="more"></a> 
 
-<p>代码如下<br>··· </p>
-<p>#include <iostream></iostream></p>
-<p>#include<vector></vector></p>
-<p>#include<queue></queue></p>
-<p>#include<stack><br>using namespace std;</stack></p>
-<p>struct TreeNode {<br>    int val;<br>    TreeNode* left;<br>    TreeNode* right;<br>    TreeNode(int x) : val(x), left(NULL), right(NULL) {}<br>};<br>TreeNode* initree(TreeNode* root, vector<int>&amp; in) {//root进行了初始化<br>    vector<int>::iterator ptr = in.begin() + 1;<br>    queue&lt;TreeNode<em>&gt; s;<br>    s.push(root);<br>    int cnt = 1;<br>    while (ptr != in.end()) {<br>        TreeNode</em> temp = s.front();<br>        s.pop();<br>        if (cnt == in.size())<br>            break;<br>        if (<em>ptr != 9999) {<br>            temp-&gt;left = new TreeNode(</em>ptr++);<br>            cnt++;<br>            s.push(temp-&gt;left);<br>        }<br>        else {<br>            ptr++;<br>            cnt++;<br>        }<br>        if (cnt == in.size())<br>            break;<br>        if (<em>ptr != 9999) {<br>            temp-&gt;right = new TreeNode(</em>ptr++);<br>            cnt++;<br>            s.push(temp-&gt;right);<br>        }<br>        else {<br>            ptr++;<br>            cnt++;<br>        }<br>        if (cnt == in.size())<br>            break;<br>    }<br>    return root;<br>}</int></int></p>
-<p>//void printtree(TreeNode* root,int depth) {<br>//    if (root-&gt;right)<br>//        printtree(root-&gt;right, depth + 1);<br>//    for (int i = 0; i &lt; depth; i++) {<br>//        cout &lt;&lt; “   “;<br>//    }<br>//    cout &lt;&lt;”-“&lt;&lt; root-&gt;val&lt;&lt;’\n’;<br>//    if (root-&gt;left) {<br>//        printtree(root-&gt;left, depth + 1);<br>//    }<br>//}</p>
-<p>//void treeprint(pair&lt;TreeNode<em>, int&gt; root, int depth) {//-1是左，1是右<br>//    if (root.first-&gt;right)<br>//        treeprint({ root.first-&gt;right,1 }, depth + 1);<br>//    for (int i = 0; i &lt; 2 * depth; i++) {<br>//        cout &lt;&lt; “   “;<br>//    }<br>//    if (root.second == 1) {<br>//        cout &lt;&lt; root.first-&gt;val &lt;&lt; ‘\n’;<br>//        for (int i = 0; i &lt; 2 * depth - 1; i++) {<br>//            cout &lt;&lt; “   “;<br>//        }<br>//        cout &lt;&lt; ‘/‘;<br>//        cout &lt;&lt; ‘\n’;<br>//    }<br>//    else if (root.second == -1) {<br>//        for (int i = 0; i &lt; 2 * depth - 10; i++) {<br>//            cout &lt;&lt; “   “;<br>//        }<br>//        cout &lt;&lt; ‘\‘;<br>//        cout &lt;&lt; ‘\n’;<br>//        for (int i = 0; i &lt; 2 * depth + 1; i++) {<br>//            cout &lt;&lt; “   “;<br>//        }<br>//        cout &lt;&lt; root.first-&gt;val &lt;&lt; ‘\n’;<br>//<br>//    }<br>//    else<br>//    {<br>//        cout &lt;&lt; root.first-&gt;val &lt;&lt; ‘\n’;<br>//    }<br>//<br>//    //    cout &lt;&lt; root.first-&gt;val &lt;&lt; ‘\n’;<br>//<br>//    if (root.first-&gt;left) {<br>//        treeprint({ root.first-&gt;left,-1 }, depth + 1);<br>//    }<br>//}<br>void treeprint(pair&lt;TreeNode</em>, int&gt; root, int depth) {//-1是左，1是右<br>    if (root.first-&gt;right)<br>        treeprint({ root.first-&gt;right,1 }, depth + 1);<br>    for (int i = 0; i &lt; depth; i++) {<br>        cout &lt;&lt; “   “;<br>    }<br>    if (root.second == 1) {<br>        cout &lt;&lt; ‘/‘;<br>    }<br>    else if (root.second == -1) {<br>        cout &lt;&lt; ‘\‘;<br>    }</p>
-<pre><code>cout &lt;&lt; root.first-&gt;val &lt;&lt; &apos;\n&apos;;
+<p>代码如下</p>
+<pre><code>
+#include &lt;iostream&gt;
+#include&lt;vector&gt;
+#include&lt;queue&gt;
+#include&lt;stack&gt;
+using namespace std;
 
-if (root.first-&gt;left) {
-    treeprint({ root.first-&gt;left,-1 }, depth + 1);
-}</code></pre><p>}</p>
-<p>int main()<br>{<br>    vector<int> a;<br>    a = { 1,2,3,9999,9999,4,5,9999,9999,6,7,9999,9999,9999,9999};<br>    TreeNode* t = new TreeNode(a[0]);<br>    initree(t, a);<br>    treeprint({ t,0 }, 0);</int></p>
-<p>}<br>··· </p>
 
+struct TreeNode {
+    int val;
+    TreeNode* left;
+    TreeNode* right;
+    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
+TreeNode* initree(TreeNode* root, vector&lt;int&gt;&amp; in) {//root进行了初始化
+    vector&lt;int&gt;::iterator ptr = in.begin() + 1;
+    queue&lt;TreeNode*&gt; s;
+    s.push(root);
+    int cnt = 1;
+    while (ptr != in.end()) {
+        TreeNode* temp = s.front();
+        s.pop();
+        if (cnt == in.size())
+            break;
+        if (*ptr != 9999) {
+            temp-&gt;left = new TreeNode(*ptr++);
+            cnt++;
+            s.push(temp-&gt;left);
+        }
+        else {
+            ptr++;
+            cnt++;
+        }
+        if (cnt == in.size())
+            break;
+        if (*ptr != 9999) {
+            temp-&gt;right = new TreeNode(*ptr++);
+            cnt++;
+            s.push(temp-&gt;right);
+        }
+        else {
+            ptr++;
+            cnt++;
+        }
+        if (cnt == in.size())
+            break;
+    }
+    return root;
+}
+
+//void printtree(TreeNode* root,int depth) {
+//    if (root-&gt;right)
+//        printtree(root-&gt;right, depth + 1);
+//    for (int i = 0; i &lt; depth; i++) {
+//        cout &lt;&lt; &quot;   &quot;;
+//    }
+//    cout &lt;&lt;&quot;-&quot;&lt;&lt; root-&gt;val&lt;&lt;&apos;\n&apos;;
+//    if (root-&gt;left) {
+//        printtree(root-&gt;left, depth + 1);
+//    }
+//}
+
+
+//void treeprint(pair&lt;TreeNode*, int&gt; root, int depth) {//-1是左，1是右
+//    if (root.first-&gt;right)
+//        treeprint({ root.first-&gt;right,1 }, depth + 1);
+//    for (int i = 0; i &lt; 2 * depth; i++) {
+//        cout &lt;&lt; &quot;   &quot;;
+//    }
+//    if (root.second == 1) {
+//        cout &lt;&lt; root.first-&gt;val &lt;&lt; &apos;\n&apos;;
+//        for (int i = 0; i &lt; 2 * depth - 1; i++) {
+//            cout &lt;&lt; &quot;   &quot;;
+//        }
+//        cout &lt;&lt; &apos;/&apos;;
+//        cout &lt;&lt; &apos;\n&apos;;
+//    }
+//    else if (root.second == -1) {
+//        for (int i = 0; i &lt; 2 * depth - 10; i++) {
+//            cout &lt;&lt; &quot;   &quot;;
+//        }
+//        cout &lt;&lt; &apos;\\&apos;;
+//        cout &lt;&lt; &apos;\n&apos;;
+//        for (int i = 0; i &lt; 2 * depth + 1; i++) {
+//            cout &lt;&lt; &quot;   &quot;;
+//        }
+//        cout &lt;&lt; root.first-&gt;val &lt;&lt; &apos;\n&apos;;
+//
+//    }
+//    else
+//    {
+//        cout &lt;&lt; root.first-&gt;val &lt;&lt; &apos;\n&apos;;
+//    }
+//
+//    //    cout &lt;&lt; root.first-&gt;val &lt;&lt; &apos;\n&apos;;
+//
+//    if (root.first-&gt;left) {
+//        treeprint({ root.first-&gt;left,-1 }, depth + 1);
+//    }
+//}
+void treeprint(pair&lt;TreeNode*, int&gt; root, int depth) {//-1是左，1是右
+    if (root.first-&gt;right)
+        treeprint({ root.first-&gt;right,1 }, depth + 1);
+    for (int i = 0; i &lt; depth; i++) {
+        cout &lt;&lt; &quot;   &quot;;
+    }
+    if (root.second == 1) {
+        cout &lt;&lt; &apos;/&apos;;
+    }
+    else if (root.second == -1) {
+        cout &lt;&lt; &apos;\\&apos;;
+    }
+
+    cout &lt;&lt; root.first-&gt;val &lt;&lt; &apos;\n&apos;;
+
+    if (root.first-&gt;left) {
+        treeprint({ root.first-&gt;left,-1 }, depth + 1);
+    }
+}
+
+int main()
+{
+    vector&lt;int&gt; a;
+    a = { 1,2,3,9999,9999,4,5,9999,9999,6,7,9999,9999,9999,9999};
+    TreeNode* t = new TreeNode(a[0]);
+    initree(t, a);
+    treeprint({ t,0 }, 0);
+
+}
+</code></pre>
       
 
       
@@ -361,7 +476,7 @@ gitment.render('gitment-ctn')
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2019 Boucii
+    		&copy; 2020 Boucii
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -454,6 +569,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">C++</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">qt</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
             
             <div class="clearfix"></div>
