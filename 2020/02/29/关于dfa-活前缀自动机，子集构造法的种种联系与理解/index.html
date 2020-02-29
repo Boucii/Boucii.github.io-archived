@@ -16,10 +16,12 @@
 <meta property="og:site_name" content="Boucii&#39;s Blog">
 <meta property="og:description" content="本文提供了一种理解DFA，NFA以及他们与活前缀自动机，PDA以及子集构造法的理解">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-02-29T07:00:05.094Z">
+<meta property="og:image" content="https://boucii.github.io/2020/02/29/关于dfa-活前缀自动机，子集构造法的种种联系与理解/fullsizerender(8).png">
+<meta property="og:updated_time" content="2020-02-29T07:02:16.107Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于dfa,活前缀自动机,子集构造法的种种联系与理解">
 <meta name="twitter:description" content="本文提供了一种理解DFA，NFA以及他们与活前缀自动机，PDA以及子集构造法的理解">
+<meta name="twitter:image" content="https://boucii.github.io/2020/02/29/关于dfa-活前缀自动机，子集构造法的种种联系与理解/fullsizerender(8).png">
   
     <link rel="alternative" href="/atom.xml" title="Boucii&#39;s Blog" type="application/atom+xml">
   
@@ -174,8 +176,8 @@
 <h3 id="再说活前缀自动机"><a href="#再说活前缀自动机" class="headerlink" title="再说活前缀自动机"></a>再说活前缀自动机</h3><p>出于一些原因，上下文无关文法不能用re所构造出来（正则定义与上下文无关文法的重要区别在于，在正则定义中是不允许递归定义的），所以不能用上面那种用re构造nfadfa的方法识别串。所以我们采用另一种方法来识别，即通过不断的读入字符在进行规约来逐渐复原这个串的语法树的推导过程。因为规约不是一个字符就可以规约，你还需要已经识别了的字符一起组成一个产生式的右边才可能规约到左边，那么我们就把这些已经识别了的字符都放到一个堆栈里，这样就可以完成规约从而识别串。</p>
 <p>那么如果我们把堆栈拿走的话，这个dfanfa是什么东西？因为没有了堆栈他就不能规约了，这个自动机就会卡在规约之前的状态，那么如果我们把他已经是别的这一种串（也就是还没有归约的串）叫一个名字，“活前缀”，那么这个自动机就是一个“活前缀自动机”</p>
 <h3 id="活前缀自动机怎么构造以及与子集构造法的关系"><a href="#活前缀自动机怎么构造以及与子集构造法的关系" class="headerlink" title="活前缀自动机怎么构造以及与子集构造法的关系"></a>活前缀自动机怎么构造以及与子集构造法的关系</h3><p>那么正如上面的自动机是由re来产生的，这一种识别活前缀的自动机要怎么构造呢？下面是一种理解方式</p>
-<p>如果把这个语言的所有活前缀拿出来，当成一个语言，然后用上面的方法做一个nfa，然后用子集构造一个dfa这就是活前缀dfa。（那么可以说明或前缀语言就是rl语言）具体解释见下面的代码框（再说一句子集构造的精神是什么，就是把所有等价的状态扔到一起做一个包，而这些所谓“等价的状态”，指的是上一步读入了某个输入字符之后可能位于的所有状态集合），这么理解或前缀自动机也是一样的，如图，我们看状态1，如果他读入一个加号到了状态2，他就有可能是状态2这个包里的每一个产生式所代表的状态。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">![1](fullsizerender(8).png)</span><br><span class="line"></span><br><span class="line">我们将移进的动作看作是和上面rl自动机是一个道理，将每一个单独的项看作一个状态构造一个nfa，将A-&gt;a.Xb到A-&gt;aX.b看作读入一个X的转换，从A-&gt;a.Bb到B-&gt;.y看作一个空字的转换过程，那么这么构造出来nfa如果用前面的适合rl自动机的子集构造法得出来一个dfa，那么这每一个子集就是一个项目闭包。而这个闭包也恰好是之前子集构造法中得一个空转移闭包。</span><br></pre></td></tr></table></figure>
+<p>如果把这个语言的所有活前缀拿出来，当成一个语言，然后用上面的方法做一个nfa，然后用子集构造一个dfa这就是活前缀dfa。（那么可以说明或前缀语言就是rl语言）具体解释见下面的代码框（再说一句子集构造的精神是什么，就是把所有等价的状态扔到一起做一个包，而这些所谓“等价的状态”，指的是上一步读入了某个输入字符之后可能位于的所有状态集合），这么理解或前缀自动机也是一样的，如图，我们看状态1，如果他读入一个加号到了状态2，他就有可能是状态2这个包里的每一个产生式所代表的状态。<br><img src="//boucii.github.io/2020/02/29/关于dfa-活前缀自动机，子集构造法的种种联系与理解/fullsizerender(8).png" alt="1"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">我们将移进的动作看作是和上面rl自动机是一个道理，将每一个单独的项看作一个状态构造一个nfa，将A-&gt;a.Xb到A-&gt;aX.b看作读入一个X的转换，从A-&gt;a.Bb到B-&gt;.y看作一个空字的转换过程，那么这么构造出来nfa如果用前面的适合rl自动机的子集构造法得出来一个dfa，那么这每一个子集就是一个项目闭包。而这个闭包也恰好是之前子集构造法中得一个空转移闭包。</span><br></pre></td></tr></table></figure>
 
 <p>下面是另一种理解方式，也是正面审视时的理解方式：</p>
 <p>我们用到了项目闭包的概念。每一个项目闭包代表了已经识别的这个活前缀如果之后要规约的话那么他可能会用到的产生式（就是说要是规约的话该怎么往回退），而他向后读入的箭头代表了要是他再次往前走的话会走到哪个状态集里面去。<br>所以构造的方法就是从开头开始得所有可能的状态做成一个包，再按照“而他向后读入的箭头代表了要是他再次往前走的话会走到哪个状态集里面去。”这句话的原则做成一个包的集族，而这样做出来的自动机配合堆栈就能完成规约功能，因为沿着箭头走是读入字符，逆着箭头走是吐出字符，也就是规约，如果现在在一个包里的时候，要接着往下走就正着用包里的产生式，如果要规约的话就逆着用包里的产生式。</p>
@@ -445,11 +447,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">编译原理</a>
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
+                <a href="javascript:void(0)" class="js-tag color5">编译原理</a>
               </li>
             
             <div class="clearfix"></div>
