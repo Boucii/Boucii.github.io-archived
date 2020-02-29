@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://boucii.github.io">
-  <title>Tag: Algorithm | Boucii&#39;s Blog</title>
+  <title>关于dfa,活前缀自动机,子集构造法的种种联系与理解 | Boucii&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Boucii&#39;s Blog">
-<meta property="og:url" content="https://boucii.github.io/tags/Algorithm/index.html">
+  <meta name="description" content="本文提供了一种理解DFA，NFA以及他们与活前缀自动机，PDA以及子集构造法的理解">
+<meta name="keywords" content="编译原理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于dfa,活前缀自动机,子集构造法的种种联系与理解">
+<meta property="og:url" content="https://boucii.github.io/2020/02/29/关于dfa-活前缀自动机，子集构造法的种种联系与理解/index.html">
 <meta property="og:site_name" content="Boucii&#39;s Blog">
+<meta property="og:description" content="本文提供了一种理解DFA，NFA以及他们与活前缀自动机，PDA以及子集构造法的理解">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-02-29T07:00:05.094Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Boucii&#39;s Blog">
+<meta name="twitter:title" content="关于dfa,活前缀自动机,子集构造法的种种联系与理解">
+<meta name="twitter:description" content="本文提供了一种理解DFA，NFA以及他们与活前缀自动机，PDA以及子集构造法的理解">
   
     <link rel="alternative" href="/atom.xml" title="Boucii&#39;s Blog" type="application/atom+xml">
   
@@ -144,298 +149,193 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-关于dfa-活前缀自动机，子集构造法的种种联系与理解" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      关于dfa,活前缀自动机,子集构造法的种种联系与理解
+    </h1>
+  
+
+        
+        <a href="/2020/02/29/关于dfa-活前缀自动机，子集构造法的种种联系与理解/" class="archive-article-date">
+  	<time datetime="2020-02-29T06:53:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-29</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="本文提供了一种理解DFA，NFA以及他们与活前缀自动机，PDA以及子集构造法的理解"><a href="#本文提供了一种理解DFA，NFA以及他们与活前缀自动机，PDA以及子集构造法的理解" class="headerlink" title="本文提供了一种理解DFA，NFA以及他们与活前缀自动机，PDA以及子集构造法的理解"></a>本文提供了一种理解DFA，NFA以及他们与活前缀自动机，PDA以及子集构造法的理解</h4><a id="more"></a>   
+<h3 id="先说词法分析器里的DFA，NFA是什么"><a href="#先说词法分析器里的DFA，NFA是什么" class="headerlink" title="先说词法分析器里的DFA，NFA是什么"></a>先说词法分析器里的DFA，NFA是什么</h3><p>RL可以化成正规表达式，而re表示的，从某种意义上来说就是这个串的最长前缀（即它本身）的各种可能，这样构造出来的自动机每一个状态就代表了一个前缀，他的最终接收状态就是已经识别了最长前缀也就是这个串本身（所以如果我们把这个自动机的每一步都看作终结态，这就是一个识别前缀的自动机）所以只要有一个终结符添加进去后不是任何一个这个re所包含的串的前缀就会报错</p>
+<h3 id="再说活前缀自动机"><a href="#再说活前缀自动机" class="headerlink" title="再说活前缀自动机"></a>再说活前缀自动机</h3><p>出于一些原因，上下文无关文法不能用re所构造出来（正则定义与上下文无关文法的重要区别在于，在正则定义中是不允许递归定义的），所以不能用上面那种用re构造nfadfa的方法识别串。所以我们采用另一种方法来识别，即通过不断的读入字符在进行规约来逐渐复原这个串的语法树的推导过程。因为规约不是一个字符就可以规约，你还需要已经识别了的字符一起组成一个产生式的右边才可能规约到左边，那么我们就把这些已经识别了的字符都放到一个堆栈里，这样就可以完成规约从而识别串。</p>
+<p>那么如果我们把堆栈拿走的话，这个dfanfa是什么东西？因为没有了堆栈他就不能规约了，这个自动机就会卡在规约之前的状态，那么如果我们把他已经是别的这一种串（也就是还没有归约的串）叫一个名字，“活前缀”，那么这个自动机就是一个“活前缀自动机”</p>
+<h3 id="活前缀自动机怎么构造以及与子集构造法的关系"><a href="#活前缀自动机怎么构造以及与子集构造法的关系" class="headerlink" title="活前缀自动机怎么构造以及与子集构造法的关系"></a>活前缀自动机怎么构造以及与子集构造法的关系</h3><p>那么正如上面的自动机是由re来产生的，这一种识别活前缀的自动机要怎么构造呢？下面是一种理解方式</p>
+<p>如果把这个语言的所有活前缀拿出来，当成一个语言，然后用上面的方法做一个nfa，然后用子集构造一个dfa这就是活前缀dfa。（那么可以说明或前缀语言就是rl语言）具体解释见下面的代码框（再说一句子集构造的精神是什么，就是把所有等价的状态扔到一起做一个包，而这些所谓“等价的状态”，指的是上一步读入了某个输入字符之后可能位于的所有状态集合），这么理解或前缀自动机也是一样的，如图，我们看状态1，如果他读入一个加号到了状态2，他就有可能是状态2这个包里的每一个产生式所代表的状态。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">![1](fullsizerender(8).png)</span><br><span class="line"></span><br><span class="line">我们将移进的动作看作是和上面rl自动机是一个道理，将每一个单独的项看作一个状态构造一个nfa，将A-&gt;a.Xb到A-&gt;aX.b看作读入一个X的转换，从A-&gt;a.Bb到B-&gt;.y看作一个空字的转换过程，那么这么构造出来nfa如果用前面的适合rl自动机的子集构造法得出来一个dfa，那么这每一个子集就是一个项目闭包。而这个闭包也恰好是之前子集构造法中得一个空转移闭包。</span><br></pre></td></tr></table></figure>
+
+<p>下面是另一种理解方式，也是正面审视时的理解方式：</p>
+<p>我们用到了项目闭包的概念。每一个项目闭包代表了已经识别的这个活前缀如果之后要规约的话那么他可能会用到的产生式（就是说要是规约的话该怎么往回退），而他向后读入的箭头代表了要是他再次往前走的话会走到哪个状态集里面去。<br>所以构造的方法就是从开头开始得所有可能的状态做成一个包，再按照“而他向后读入的箭头代表了要是他再次往前走的话会走到哪个状态集里面去。”这句话的原则做成一个包的集族，而这样做出来的自动机配合堆栈就能完成规约功能，因为沿着箭头走是读入字符，逆着箭头走是吐出字符，也就是规约，如果现在在一个包里的时候，要接着往下走就正着用包里的产生式，如果要规约的话就逆着用包里的产生式。</p>
+<p>参考文献：龙书第二版<br>以及<br><a href="https://www.cnblogs.com/Asterism12/p/12046270.html" target="_blank" rel="noopener">https://www.cnblogs.com/Asterism12/p/12046270.html</a></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你看我的博客<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/02/26/KMP算法理解/" class="archive-article-date">
-  	<time datetime="2020-02-26T07:31:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/26/KMP算法理解/">KMP算法理解</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Algorithm</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">编译原理</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
       
-        </div></section>
+
       
+
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/19/graph/" class="archive-article-date">
-  	<time datetime="2019-11-19T14:23:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/19/graph/">graph initiation and prim and DijKstra</a>
-    </h1>
-  
+      </div>
+    </span>
+  </div>
+</div>
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Algorithm</a>
-        		</li>
-      		
-		</ul>
-	</div>
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://boucii.github.io/2020/02/29/关于dfa-活前缀自动机，子集构造法的种种联系与理解/" alt="微信分享二维码">
+    </div>
+</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/17/二叉树的图形化显示算法/" class="archive-article-date">
-  	<time datetime="2019-11-17T15:46:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-17</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/02/27/词法分析主线总结与复盘/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">词法分析主线总结与复盘</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/17/二叉树的图形化显示算法/">二叉树的图形化显示算法</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Algorithm</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/10/集合的整数表示(位运算)/" class="archive-article-date">
-  	<time datetime="2019-11-10T13:09:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/10/集合的整数表示(位运算)/">集合的整数表示</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Algorithm</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/09/PathSumPT-1/" class="archive-article-date">
-  	<time datetime="2019-11-09T08:33:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/09/PathSumPT-1/">PathSumPT.1</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Algorithm</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/09/Leetcode二叉树C++调试模板/" class="archive-article-date">
-  	<time datetime="2019-11-09T06:54:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-09</time>
-</a>
-        </div>
-    	 
+  <div id="gitment-ctn"></div> 
+<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: "https://boucii.github.io/2020/02/29/关于dfa-活前缀自动机，子集构造法的种种联系与理解/",
+  owner: 'Boucii',
+  repo: 'boucii.github.io',
+  oauth: {
+    client_id: '5706a284f1eeef16913d',
+    client_secret: '140159ef67e11729c7a03660716133209d248291',
+  },
+})
+gitment.render('gitment-ctn')
+</script>
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/09/Leetcode二叉树C++调试模板/">Leetcode二叉树C++调试模板</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Algorithm</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-max">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/06/Max Sum of Average/" class="archive-article-date">
-  	<time datetime="2019-11-06T10:12:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/06/Max Sum of Average/">Max Sum of Average</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Algorithm</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -459,9 +359,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,
