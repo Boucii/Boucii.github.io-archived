@@ -17,7 +17,7 @@
 <meta property="og:description" content="本文提供了一种理解DFA，NFA以及他们与活前缀自动机，PDA以及子集构造法的理解">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://boucii.github.io/2020/02/29/关于dfa-活前缀自动机，子集构造法的种种联系与理解/fullsizerender(8).png">
-<meta property="og:updated_time" content="2020-02-29T07:02:16.107Z">
+<meta property="og:updated_time" content="2020-02-29T07:51:03.407Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于dfa,活前缀自动机,子集构造法的种种联系与理解">
 <meta name="twitter:description" content="本文提供了一种理解DFA，NFA以及他们与活前缀自动机，PDA以及子集构造法的理解">
@@ -173,7 +173,7 @@
       
         <h4 id="本文提供了一种理解DFA，NFA以及他们与活前缀自动机，PDA以及子集构造法的理解"><a href="#本文提供了一种理解DFA，NFA以及他们与活前缀自动机，PDA以及子集构造法的理解" class="headerlink" title="本文提供了一种理解DFA，NFA以及他们与活前缀自动机，PDA以及子集构造法的理解"></a>本文提供了一种理解DFA，NFA以及他们与活前缀自动机，PDA以及子集构造法的理解</h4><a id="more"></a>   
 <h3 id="先说词法分析器里的DFA，NFA是什么"><a href="#先说词法分析器里的DFA，NFA是什么" class="headerlink" title="先说词法分析器里的DFA，NFA是什么"></a>先说词法分析器里的DFA，NFA是什么</h3><p>RL可以化成正规表达式，而re表示的，从某种意义上来说就是这个串的最长前缀（即它本身）的各种可能，这样构造出来的自动机每一个状态就代表了一个前缀，他的最终接收状态就是已经识别了最长前缀也就是这个串本身（所以如果我们把这个自动机的每一步都看作终结态，这就是一个识别前缀的自动机）所以只要有一个终结符添加进去后不是任何一个这个re所包含的串的前缀就会报错</p>
-<h3 id="再说活前缀自动机"><a href="#再说活前缀自动机" class="headerlink" title="再说活前缀自动机"></a>再说活前缀自动机</h3><p>出于一些原因，上下文无关文法不能用re所构造出来（正则定义与上下文无关文法的重要区别在于，在正则定义中是不允许递归定义的），所以不能用上面那种用re构造nfadfa的方法识别串。所以我们采用另一种方法来识别，即通过不断的读入字符在进行规约来逐渐复原这个串的语法树的推导过程。因为规约不是一个字符就可以规约，你还需要已经识别了的字符一起组成一个产生式的右边才可能规约到左边，那么我们就把这些已经识别了的字符都放到一个堆栈里，这样就可以完成规约从而识别串。</p>
+<h3 id="再说活前缀自动机"><a href="#再说活前缀自动机" class="headerlink" title="再说活前缀自动机"></a>再说活前缀自动机</h3><p>出于一些原因，上下文无关文法不能用re所构造出来（正则定义与上下文无关文法的重要区别在于，在正则定义中是不允许递归定义的，正规语言之所以能够用nfadfa识别，正规文法右边只有一个非终结符，因此无论由上而下推到还是由下而上规约都不存在路径选择或者规约记忆的问题），所以不能用上面那种用re构造nfadfa的方法识别串。所以我们采用另一种方法来识别，即通过不断的读入字符在进行规约来逐渐复原这个串的语法树的推导过程。因为规约不是一个字符就可以规约，你还需要已经识别了的字符一起组成一个产生式的右边才可能规约到左边，那么我们就把这些已经识别了的字符都放到一个堆栈里，这样就可以完成规约从而识别串。</p>
 <p>那么如果我们把堆栈拿走的话，这个dfanfa是什么东西？因为没有了堆栈他就不能规约了，这个自动机就会卡在规约之前的状态，那么如果我们把他已经是别的这一种串（也就是还没有归约的串）叫一个名字，“活前缀”，那么这个自动机就是一个“活前缀自动机”</p>
 <h3 id="活前缀自动机怎么构造以及与子集构造法的关系"><a href="#活前缀自动机怎么构造以及与子集构造法的关系" class="headerlink" title="活前缀自动机怎么构造以及与子集构造法的关系"></a>活前缀自动机怎么构造以及与子集构造法的关系</h3><p>那么正如上面的自动机是由re来产生的，这一种识别活前缀的自动机要怎么构造呢？下面是一种理解方式</p>
 <p>如果把这个语言的所有活前缀拿出来，当成一个语言，然后用上面的方法做一个nfa，然后用子集构造一个dfa这就是活前缀dfa。（那么可以说明或前缀语言就是rl语言）具体解释见下面的代码框（再说一句子集构造的精神是什么，就是把所有等价的状态扔到一起做一个包，而这些所谓“等价的状态”，指的是上一步读入了某个输入字符之后可能位于的所有状态集合），这么理解或前缀自动机也是一样的，如图，我们看状态1，如果他读入一个加号到了状态2，他就有可能是状态2这个包里的每一个产生式所代表的状态。<br><img src="//boucii.github.io/2020/02/29/关于dfa-活前缀自动机，子集构造法的种种联系与理解/fullsizerender(8).png" alt="1"></p>
@@ -285,6 +285,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2020/04/06/那些年，manim踩过的坑/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          那些年，manim踩过的坑
+        
+      </div>
+    </a>
   
   
     <a href="/2020/02/27/词法分析主线总结与复盘/" id="article-nav-older" class="article-nav-link-wrap">
@@ -435,11 +444,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color4">C++</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">C++</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -452,6 +461,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">编译原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">汇编</a>
               </li>
             
             <div class="clearfix"></div>

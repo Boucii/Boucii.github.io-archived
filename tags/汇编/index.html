@@ -6,20 +6,15 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://boucii.github.io">
-  <title>二叉树的图形化显示算法 | Boucii&#39;s Blog</title>
+  <title>Tag: 汇编 | Boucii&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="上一次写了leetcode的二叉树调试模板，这次写一个二叉树的图形化显示算法方便调试总共有三种，注释掉了两种，第一种不打/或者\，第二种将这两个符号分行打（不过还没有完全处理好对齐，期待你的建议，第三种没有注释掉的这种，将/\就直接打到val前面了。">
-<meta name="keywords" content="Algorithm">
-<meta property="og:type" content="article">
-<meta property="og:title" content="二叉树的图形化显示算法">
-<meta property="og:url" content="https://boucii.github.io/2019/11/17/二叉树的图形化显示算法/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Boucii&#39;s Blog">
+<meta property="og:url" content="https://boucii.github.io/tags/汇编/index.html">
 <meta property="og:site_name" content="Boucii&#39;s Blog">
-<meta property="og:description" content="上一次写了leetcode的二叉树调试模板，这次写一个二叉树的图形化显示算法方便调试总共有三种，注释掉了两种，第一种不打/或者\，第二种将这两个符号分行打（不过还没有完全处理好对齐，期待你的建议，第三种没有注释掉的这种，将/\就直接打到val前面了。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-11-19T15:13:43.497Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="二叉树的图形化显示算法">
-<meta name="twitter:description" content="上一次写了leetcode的二叉树调试模板，这次写一个二叉树的图形化显示算法方便调试总共有三种，注释掉了两种，第一种不打/或者\，第二种将这两个符号分行打（不过还没有完全处理好对齐，期待你的建议，第三种没有注释掉的这种，将/\就直接打到val前面了。">
+<meta name="twitter:title" content="Boucii&#39;s Blog">
   
     <link rel="alternative" href="/atom.xml" title="Boucii&#39;s Blog" type="application/atom+xml">
   
@@ -149,324 +144,60 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-二叉树的图形化显示算法" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      二叉树的图形化显示算法
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2020" class="archive-year">2020</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2020/04/23/用汇编做一个叠砖块的游戏/" class="archive-article-date">
+  	<time datetime="2020-04-23T01:59:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-23</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2020/04/23/用汇编做一个叠砖块的游戏/">用汇编做一个叠砖块的游戏</a>
     </h1>
   
 
-        
-        <a href="/2019/11/17/二叉树的图形化显示算法/" class="archive-article-date">
-  	<time datetime="2019-11-17T15:46:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>上一次写了leetcode的二叉树调试模板，这次写一个二叉树的图形化显示算法方便调试<br>总共有三种，注释掉了两种，第一种不打/或者\，第二种将这两个符号分行打（不过还没有完全处理好对齐，期待你的建议，第三种没有注释掉的这种，将/\就直接打到val前面了。</p>
-<a id="more"></a> 
-
-<p>代码如下</p>
-<pre><code>
-#include &lt;iostream&gt;
-#include&lt;vector&gt;
-#include&lt;queue&gt;
-#include&lt;stack&gt;
-using namespace std;
-
-
-struct TreeNode {
-    int val;
-    TreeNode* left;
-    TreeNode* right;
-    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
-};
-TreeNode* initree(TreeNode* root, vector&lt;int&gt;&amp; in) {//root进行了初始化
-    vector&lt;int&gt;::iterator ptr = in.begin() + 1;
-    queue&lt;TreeNode*&gt; s;
-    s.push(root);
-    int cnt = 1;
-    while (ptr != in.end()) {
-        TreeNode* temp = s.front();
-        s.pop();
-        if (cnt == in.size())
-            break;
-        if (*ptr != 9999) {
-            temp-&gt;left = new TreeNode(*ptr++);
-            cnt++;
-            s.push(temp-&gt;left);
-        }
-        else {
-            ptr++;
-            cnt++;
-        }
-        if (cnt == in.size())
-            break;
-        if (*ptr != 9999) {
-            temp-&gt;right = new TreeNode(*ptr++);
-            cnt++;
-            s.push(temp-&gt;right);
-        }
-        else {
-            ptr++;
-            cnt++;
-        }
-        if (cnt == in.size())
-            break;
-    }
-    return root;
-}
-
-//void printtree(TreeNode* root,int depth) {
-//    if (root-&gt;right)
-//        printtree(root-&gt;right, depth + 1);
-//    for (int i = 0; i &lt; depth; i++) {
-//        cout &lt;&lt; &quot;   &quot;;
-//    }
-//    cout &lt;&lt;&quot;-&quot;&lt;&lt; root-&gt;val&lt;&lt;&apos;\n&apos;;
-//    if (root-&gt;left) {
-//        printtree(root-&gt;left, depth + 1);
-//    }
-//}
-
-
-//void treeprint(pair&lt;TreeNode*, int&gt; root, int depth) {//-1是左，1是右
-//    if (root.first-&gt;right)
-//        treeprint({ root.first-&gt;right,1 }, depth + 1);
-//    for (int i = 0; i &lt; 2 * depth; i++) {
-//        cout &lt;&lt; &quot;   &quot;;
-//    }
-//    if (root.second == 1) {
-//        cout &lt;&lt; root.first-&gt;val &lt;&lt; &apos;\n&apos;;
-//        for (int i = 0; i &lt; 2 * depth - 1; i++) {
-//            cout &lt;&lt; &quot;   &quot;;
-//        }
-//        cout &lt;&lt; &apos;/&apos;;
-//        cout &lt;&lt; &apos;\n&apos;;
-//    }
-//    else if (root.second == -1) {
-//        for (int i = 0; i &lt; 2 * depth - 10; i++) {
-//            cout &lt;&lt; &quot;   &quot;;
-//        }
-//        cout &lt;&lt; &apos;\\&apos;;
-//        cout &lt;&lt; &apos;\n&apos;;
-//        for (int i = 0; i &lt; 2 * depth + 1; i++) {
-//            cout &lt;&lt; &quot;   &quot;;
-//        }
-//        cout &lt;&lt; root.first-&gt;val &lt;&lt; &apos;\n&apos;;
-//
-//    }
-//    else
-//    {
-//        cout &lt;&lt; root.first-&gt;val &lt;&lt; &apos;\n&apos;;
-//    }
-//
-//    //    cout &lt;&lt; root.first-&gt;val &lt;&lt; &apos;\n&apos;;
-//
-//    if (root.first-&gt;left) {
-//        treeprint({ root.first-&gt;left,-1 }, depth + 1);
-//    }
-//}
-void treeprint(pair&lt;TreeNode*, int&gt; root, int depth) {//-1是左，1是右
-    if (root.first-&gt;right)
-        treeprint({ root.first-&gt;right,1 }, depth + 1);
-    for (int i = 0; i &lt; depth; i++) {
-        cout &lt;&lt; &quot;   &quot;;
-    }
-    if (root.second == 1) {
-        cout &lt;&lt; &apos;/&apos;;
-    }
-    else if (root.second == -1) {
-        cout &lt;&lt; &apos;\\&apos;;
-    }
-
-    cout &lt;&lt; root.first-&gt;val &lt;&lt; &apos;\n&apos;;
-
-    if (root.first-&gt;left) {
-        treeprint({ root.first-&gt;left,-1 }, depth + 1);
-    }
-}
-
-int main()
-{
-    vector&lt;int&gt; a;
-    a = { 1,2,3,9999,9999,4,5,9999,9999,6,7,9999,9999,9999,9999};
-    TreeNode* t = new TreeNode(a[0]);
-    initree(t, a);
-    treeprint({ t,0 }, 0);
-
-}
-</code></pre>
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你看我的博客<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Algorithm</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">汇编</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://boucii.github.io/2019/11/17/二叉树的图形化显示算法/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2019/11/19/graph/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          graph initiation and prim and DijKstra
-        
-      </div>
-    </a>
   
   
-    <a href="/2019/11/10/集合的整数表示(位运算)/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">集合的整数表示</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
-  <div id="gitment-ctn"></div> 
-<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
-<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
-<script>
-var gitment = new Gitment({
-  id: "https://boucii.github.io/2019/11/17/二叉树的图形化显示算法/",
-  owner: 'Boucii',
-  repo: 'boucii.github.io',
-  oauth: {
-    client_id: '5706a284f1eeef16913d',
-    client_secret: '140159ef67e11729c7a03660716133209d248291',
-  },
-})
-gitment.render('gitment-ctn')
-</script>
-  
+    
 
 
           </div>
@@ -490,9 +221,9 @@ gitment.render('gitment-ctn')
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,

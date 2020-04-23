@@ -22,7 +22,7 @@
 <meta property="og:image" content="https://boucii.github.io/2020/02/10/pythonwhels/3.png">
 <meta property="og:image" content="https://boucii.github.io/2020/02/10/pythonwhels/4.png">
 <meta property="og:image" content="https://boucii.github.io/2020/02/10/pythonwhels/5.png">
-<meta property="og:updated_time" content="2020-02-21T06:46:48.157Z">
+<meta property="og:updated_time" content="2020-04-02T09:17:45.338Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python安装库的种种">
 <meta name="twitter:description" content="Python 安装库的种种最近想学个数据可视化 就去看了看vtk相关的东西，结果装轮子的时候遇到种种（初学者的）错误 搞了好久记录一下 愿世间再没有装不上的库">
@@ -188,6 +188,11 @@
 <p>那么下载那个版本呢<br><img src="//boucii.github.io/2020/02/10/pythonwhels/3.png" alt="avatar"></p>
 <p>这时打开cmd 运行python<br>如图<br><img src="//boucii.github.io/2020/02/10/pythonwhels/4.png" alt="avatar"><br>此时版本为3.7.1 on Win32<br>那么我们就要下载cp37 win32的版本的轮子</p>
 <p>下载成功后cmd cd到该目录 之后pip就可以了<br><img src="//boucii.github.io/2020/02/10/pythonwhels/5.png" alt="avatar"></p>
+<p>2020.4更新<br>直接下载whl文件可能还是会遇到下了新的版本但是你的环境是老版本的问题，这时虽然你的电脑架构和系统是对的但是还是无法安装，这时，会报错</p>
+<p>pip安装报错：is not a supported wheel on this platform<br>方法：在shell中输入import pip; print(pip.pep425tags.get_supported())可以获取到pip支持的文件名<br>注意：对于不同的pip版本上面的命令可能会不一样 自己百度一下就知道了<br>成功之后会显示python支持的文件名以及版本<br>如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;import pip; print(pip.pep425tags.get_supported())</span><br><span class="line">[(&apos;cp27&apos;, &apos;none&apos;, &apos;win32&apos;), (&apos;py2&apos;, &apos;none&apos;, &apos;win32&apos;), (&apos;cp27&apos;, &apos;none&apos;, &apos;any&apos;), (&apos;cp2&apos;, &apos;none&apos;, &apos;any&apos;), (&apos;cp26&apos;, &apos;none&apos;, &apos;any&apos;), (&apos;cp25&apos;, &apos;none&apos;, &apos;any&apos;), (&apos;cp24&apos;, &apos;none&apos;, &apos;any&apos;), (&apos;cp23&apos;, &apos;none&apos;, &apos;any&apos;), (&apos;cp22&apos;, &apos;none&apos;, &apos;any&apos;), (&apos;cp21&apos;, &apos;none&apos;, &apos;any&apos;), (&apos;cp20&apos;, &apos;none&apos;, &apos;any&apos;), (&apos;py27&apos;, &apos;none&apos;, &apos;any&apos;), (&apos;py2&apos;, &apos;none&apos;, &apos;any&apos;), (&apos;py26&apos;, &apos;none&apos;, &apos;any&apos;), (&apos;py25&apos;, &apos;none&apos;, &apos;any&apos;), (&apos;py24&apos;, &apos;none&apos;, &apos;any&apos;), (&apos;py23&apos;, &apos;none&apos;, &apos;any&apos;), (&apos;py22&apos;, &apos;none&apos;, &apos;any&apos;), (&apos;py21&apos;, &apos;none&apos;, &apos;any&apos;), (&apos;py20&apos;, &apos;none&apos;, &apos;any&apos;)]</span><br></pre></td></tr></table></figure>
+
+<p>这时 如果你下载的文件名里面比如有cp28等更高的版本那么就不会支持。</p>
 
       
 
@@ -450,11 +455,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color4">C++</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">C++</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -467,6 +472,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">编译原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">汇编</a>
               </li>
             
             <div class="clearfix"></div>

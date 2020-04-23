@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://boucii.github.io">
-  <title>二叉树的图形化显示算法 | Boucii&#39;s Blog</title>
+  <title>那些年，manim踩过的坑 | Boucii&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="上一次写了leetcode的二叉树调试模板，这次写一个二叉树的图形化显示算法方便调试总共有三种，注释掉了两种，第一种不打/或者\，第二种将这两个符号分行打（不过还没有完全处理好对齐，期待你的建议，第三种没有注释掉的这种，将/\就直接打到val前面了。">
-<meta name="keywords" content="Algorithm">
+  <meta name="description" content="manim的坑太多 而且大部分网上的答案都没有或者没有用，所以我自己的方法也是仅供参考 1.miktex的安装安装时不要安装简装版，打开所有下载页面，下载net版，会下载一个下载器，之后用下载器下载完全体，这样会方便很多，如果连不上服务器，他的下载程序里有提供代理服务器安装 miktex翻车概率很大，要是翻车了（下面的第二个问题就卸载了重来，如果卸载显示找不到目标文件就直接把文件夹删了，反正我是这">
+<meta name="keywords" content="Python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="二叉树的图形化显示算法">
-<meta property="og:url" content="https://boucii.github.io/2019/11/17/二叉树的图形化显示算法/index.html">
+<meta property="og:title" content="那些年，manim踩过的坑">
+<meta property="og:url" content="https://boucii.github.io/2020/04/06/那些年，manim踩过的坑/index.html">
 <meta property="og:site_name" content="Boucii&#39;s Blog">
-<meta property="og:description" content="上一次写了leetcode的二叉树调试模板，这次写一个二叉树的图形化显示算法方便调试总共有三种，注释掉了两种，第一种不打/或者\，第二种将这两个符号分行打（不过还没有完全处理好对齐，期待你的建议，第三种没有注释掉的这种，将/\就直接打到val前面了。">
+<meta property="og:description" content="manim的坑太多 而且大部分网上的答案都没有或者没有用，所以我自己的方法也是仅供参考 1.miktex的安装安装时不要安装简装版，打开所有下载页面，下载net版，会下载一个下载器，之后用下载器下载完全体，这样会方便很多，如果连不上服务器，他的下载程序里有提供代理服务器安装 miktex翻车概率很大，要是翻车了（下面的第二个问题就卸载了重来，如果卸载显示找不到目标文件就直接把文件夹删了，反正我是这">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-11-19T15:13:43.497Z">
+<meta property="og:updated_time" content="2020-04-05T17:00:21.718Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="二叉树的图形化显示算法">
-<meta name="twitter:description" content="上一次写了leetcode的二叉树调试模板，这次写一个二叉树的图形化显示算法方便调试总共有三种，注释掉了两种，第一种不打/或者\，第二种将这两个符号分行打（不过还没有完全处理好对齐，期待你的建议，第三种没有注释掉的这种，将/\就直接打到val前面了。">
+<meta name="twitter:title" content="那些年，manim踩过的坑">
+<meta name="twitter:description" content="manim的坑太多 而且大部分网上的答案都没有或者没有用，所以我自己的方法也是仅供参考 1.miktex的安装安装时不要安装简装版，打开所有下载页面，下载net版，会下载一个下载器，之后用下载器下载完全体，这样会方便很多，如果连不上服务器，他的下载程序里有提供代理服务器安装 miktex翻车概率很大，要是翻车了（下面的第二个问题就卸载了重来，如果卸载显示找不到目标文件就直接把文件夹删了，反正我是这">
   
     <link rel="alternative" href="/atom.xml" title="Boucii&#39;s Blog" type="application/atom+xml">
   
@@ -149,160 +149,39 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-二叉树的图形化显示算法" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-那些年，manim踩过的坑" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      二叉树的图形化显示算法
+      那些年，manim踩过的坑
     </h1>
   
 
         
-        <a href="/2019/11/17/二叉树的图形化显示算法/" class="archive-article-date">
-  	<time datetime="2019-11-17T15:46:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-17</time>
+        <a href="/2020/04/06/那些年，manim踩过的坑/" class="archive-article-date">
+  	<time datetime="2020-04-05T16:31:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-06</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>上一次写了leetcode的二叉树调试模板，这次写一个二叉树的图形化显示算法方便调试<br>总共有三种，注释掉了两种，第一种不打/或者\，第二种将这两个符号分行打（不过还没有完全处理好对齐，期待你的建议，第三种没有注释掉的这种，将/\就直接打到val前面了。</p>
-<a id="more"></a> 
+        <p>manim的坑太多 而且大部分网上的答案都没有或者没有用，所以我自己的方法也是仅供参考</p>
+<h2 id="1-miktex的安装"><a href="#1-miktex的安装" class="headerlink" title="1.miktex的安装"></a>1.miktex的安装</h2><p>安装时不要安装简装版，打开所有下载页面，下载net版，会下载一个下载器，之后用下载器下载完全体，这样会方便很多，如果连不上服务器，他的下载程序里有提供代理服务器安装</p>
+<p>miktex翻车概率很大，要是翻车了（下面的第二个问题就卸载了重来，如果卸载显示找不到目标文件就直接把文件夹删了，反正我是这样干的）就卸了重装</p>
+<h2 id="2-latex不是内部或外部的命令-xelatex不是内部或外部的命令"><a href="#2-latex不是内部或外部的命令-xelatex不是内部或外部的命令" class="headerlink" title="2.latex不是内部或外部的命令 /xelatex不是内部或外部的命令"></a>2.latex不是内部或外部的命令 /xelatex不是内部或外部的命令</h2><p>把latex软件路径加到path里面去，路径在miktex/miktex/*64（大同小异）里面，如果里面软件没有了（比如我，而且这时候还无法卸载）就删了miktex重新安装net版</p>
+<h2 id="3-dvi无法生成的问题：Latex-error-converting-to-dvi"><a href="#3-dvi无法生成的问题：Latex-error-converting-to-dvi" class="headerlink" title="3.dvi无法生成的问题：Latex error converting to dvi"></a>3.dvi无法生成的问题：Latex error converting to dvi</h2><p>更新/下载新的dvisvgm，顺便一提，已经是第好几次到sourceforge上下软件下出来的是古早版本</p>
+<p>换个下载地址！！不要用sourceforge了求求你（对我自己）</p>
+<h2 id="4-xdv生成问题-：Xelatex-error-converting-to-xdv"><a href="#4-xdv生成问题-：Xelatex-error-converting-to-xdv" class="headerlink" title="4.xdv生成问题 ：Xelatex error converting to xdv."></a>4.xdv生成问题 ：Xelatex error converting to xdv.</h2><p>差点重新安装miktex。。幸好没有。。这个应该是你在py里面用了latex的代码而且格式是错误的。不要看日志文件，p用没有。<br>打开生成的tex文件夹里的对应tex文件，直接在latex编辑器（miktex console）里面编译，一般来说会报错，按照它里面的报错修改</p>
+<p>不过这样也有时候不管用。这样就直接把“–一些latex表达式”前面加个r，变成生字符串如 r”\LaTeX”<br>这样我就可以了</p>
+<h2 id="5-如何在代码编辑器的自动代码补里用到manim库"><a href="#5-如何在代码编辑器的自动代码补里用到manim库" class="headerlink" title="5.如何在代码编辑器的自动代码补里用到manim库"></a>5.如何在代码编辑器的自动代码补里用到manim库</h2><p>我自己也不知道是哪一步：<br>1。把manim的库加到了python地址里的site-pakages里面<br>2.貌似我的vscode用的anaconda环境而且和python的环境还不在一起就很迷（我也不确定，因为anaconda里面有自己一套的库文件）按照上面的方法把manim的库文件夹放到anaconda的库文件夹site-pakages里就解决了。<br>3.还加了个pth文件，具体自己去搜，我也不知道这一步是不是必要的。</p>
+<p>此外你可以安装一些机器学习的代码补全插件。</p>
+<h2 id="6-没有库-big-ol-pile-of-manim-imports"><a href="#6-没有库-big-ol-pile-of-manim-imports" class="headerlink" title="6.没有库 big_ol_pile_of_manim_imports"></a>6.没有库 big_ol_pile_of_manim_imports</h2><p>from big_ol_pile_of_manim_imports import *<br>改成<br>from manimlib.imports import *</p>
+<p><strong>不要直接抄或者copy别人或者教程里面的代码，有可能对你的版本不适用，记得改！！血的教训</strong></p>
 
-<p>代码如下</p>
-<pre><code>
-#include &lt;iostream&gt;
-#include&lt;vector&gt;
-#include&lt;queue&gt;
-#include&lt;stack&gt;
-using namespace std;
-
-
-struct TreeNode {
-    int val;
-    TreeNode* left;
-    TreeNode* right;
-    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
-};
-TreeNode* initree(TreeNode* root, vector&lt;int&gt;&amp; in) {//root进行了初始化
-    vector&lt;int&gt;::iterator ptr = in.begin() + 1;
-    queue&lt;TreeNode*&gt; s;
-    s.push(root);
-    int cnt = 1;
-    while (ptr != in.end()) {
-        TreeNode* temp = s.front();
-        s.pop();
-        if (cnt == in.size())
-            break;
-        if (*ptr != 9999) {
-            temp-&gt;left = new TreeNode(*ptr++);
-            cnt++;
-            s.push(temp-&gt;left);
-        }
-        else {
-            ptr++;
-            cnt++;
-        }
-        if (cnt == in.size())
-            break;
-        if (*ptr != 9999) {
-            temp-&gt;right = new TreeNode(*ptr++);
-            cnt++;
-            s.push(temp-&gt;right);
-        }
-        else {
-            ptr++;
-            cnt++;
-        }
-        if (cnt == in.size())
-            break;
-    }
-    return root;
-}
-
-//void printtree(TreeNode* root,int depth) {
-//    if (root-&gt;right)
-//        printtree(root-&gt;right, depth + 1);
-//    for (int i = 0; i &lt; depth; i++) {
-//        cout &lt;&lt; &quot;   &quot;;
-//    }
-//    cout &lt;&lt;&quot;-&quot;&lt;&lt; root-&gt;val&lt;&lt;&apos;\n&apos;;
-//    if (root-&gt;left) {
-//        printtree(root-&gt;left, depth + 1);
-//    }
-//}
-
-
-//void treeprint(pair&lt;TreeNode*, int&gt; root, int depth) {//-1是左，1是右
-//    if (root.first-&gt;right)
-//        treeprint({ root.first-&gt;right,1 }, depth + 1);
-//    for (int i = 0; i &lt; 2 * depth; i++) {
-//        cout &lt;&lt; &quot;   &quot;;
-//    }
-//    if (root.second == 1) {
-//        cout &lt;&lt; root.first-&gt;val &lt;&lt; &apos;\n&apos;;
-//        for (int i = 0; i &lt; 2 * depth - 1; i++) {
-//            cout &lt;&lt; &quot;   &quot;;
-//        }
-//        cout &lt;&lt; &apos;/&apos;;
-//        cout &lt;&lt; &apos;\n&apos;;
-//    }
-//    else if (root.second == -1) {
-//        for (int i = 0; i &lt; 2 * depth - 10; i++) {
-//            cout &lt;&lt; &quot;   &quot;;
-//        }
-//        cout &lt;&lt; &apos;\\&apos;;
-//        cout &lt;&lt; &apos;\n&apos;;
-//        for (int i = 0; i &lt; 2 * depth + 1; i++) {
-//            cout &lt;&lt; &quot;   &quot;;
-//        }
-//        cout &lt;&lt; root.first-&gt;val &lt;&lt; &apos;\n&apos;;
-//
-//    }
-//    else
-//    {
-//        cout &lt;&lt; root.first-&gt;val &lt;&lt; &apos;\n&apos;;
-//    }
-//
-//    //    cout &lt;&lt; root.first-&gt;val &lt;&lt; &apos;\n&apos;;
-//
-//    if (root.first-&gt;left) {
-//        treeprint({ root.first-&gt;left,-1 }, depth + 1);
-//    }
-//}
-void treeprint(pair&lt;TreeNode*, int&gt; root, int depth) {//-1是左，1是右
-    if (root.first-&gt;right)
-        treeprint({ root.first-&gt;right,1 }, depth + 1);
-    for (int i = 0; i &lt; depth; i++) {
-        cout &lt;&lt; &quot;   &quot;;
-    }
-    if (root.second == 1) {
-        cout &lt;&lt; &apos;/&apos;;
-    }
-    else if (root.second == -1) {
-        cout &lt;&lt; &apos;\\&apos;;
-    }
-
-    cout &lt;&lt; root.first-&gt;val &lt;&lt; &apos;\n&apos;;
-
-    if (root.first-&gt;left) {
-        treeprint({ root.first-&gt;left,-1 }, depth + 1);
-    }
-}
-
-int main()
-{
-    vector&lt;int&gt; a;
-    a = { 1,2,3,9999,9999,4,5,9999,9999,6,7,9999,9999,9999,9999};
-    TreeNode* t = new TreeNode(a[0]);
-    initree(t, a);
-    treeprint({ t,0 }, 0);
-
-}
-</code></pre>
       
 
       
@@ -336,7 +215,7 @@ int main()
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Algorithm</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
         		</li>
       		
 		</ul>
@@ -392,7 +271,7 @@ int main()
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://boucii.github.io/2019/11/17/二叉树的图形化显示算法/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://boucii.github.io/2020/04/06/那些年，manim踩过的坑/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -406,18 +285,18 @@ int main()
   
 <nav id="article-nav">
   
-    <a href="/2019/11/19/graph/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/04/23/用汇编做一个叠砖块的游戏/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          graph initiation and prim and DijKstra
+          用汇编做一个叠砖块的游戏
         
       </div>
     </a>
   
   
-    <a href="/2019/11/10/集合的整数表示(位运算)/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">集合的整数表示</div>
+    <a href="/2020/02/29/关于dfa-活前缀自动机，子集构造法的种种联系与理解/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">关于dfa,活前缀自动机,子集构造法的种种联系与理解</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -456,7 +335,7 @@ int main()
 <script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 var gitment = new Gitment({
-  id: "https://boucii.github.io/2019/11/17/二叉树的图形化显示算法/",
+  id: "https://boucii.github.io/2020/04/06/那些年，manim踩过的坑/",
   owner: 'Boucii',
   repo: 'boucii.github.io',
   oauth: {
