@@ -8,20 +8,20 @@
   <link rel="dns-prefetch" href="https://boucii.github.io">
   <title>用汇编做一个叠砖块的游戏 | Boucii&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="实验报告一.题目描述编制程序当输入字母 S 时，开始在屏幕上码砖块，砖块的大小事先确定，当码到屏幕顶部或者敲击任意键时停止，砖块的颜色有差别。 二.任务难点分析1.需要确定怎样显示一个砖块2.需要确定检查键盘缓冲区的方法3.需要找到延时的方法4.需要确定砖块什么时候向左右码，什么时候一行码满换行5.解决彩色显示的问题   三.相关资料查找 实现图形变化功能，怎样画图https://wenku.ba">
+  <meta name="description" content="实验报告一.题目描述编制程序当输入字母 S 时，开始在屏幕上码砖块，砖块的大小事先确定，当码到屏幕顶部或者敲击任意键时停止，砖块的颜色有差别。 二.任务难点分析1.需要确定怎样显示一个砖块2.需要确定检查键盘缓冲区的方法3.需要找到延时的方法4.需要确定砖块什么时候向左右码，什么时候一行码满换行5.解决彩色显示的问题   三.相关资料查找 实现图形变化功能，怎样画图https://wenk">
 <meta name="keywords" content="汇编">
 <meta property="og:type" content="article">
 <meta property="og:title" content="用汇编做一个叠砖块的游戏">
 <meta property="og:url" content="https://boucii.github.io/2020/04/23/用汇编做一个叠砖块的游戏/index.html">
 <meta property="og:site_name" content="Boucii&#39;s Blog">
-<meta property="og:description" content="实验报告一.题目描述编制程序当输入字母 S 时，开始在屏幕上码砖块，砖块的大小事先确定，当码到屏幕顶部或者敲击任意键时停止，砖块的颜色有差别。 二.任务难点分析1.需要确定怎样显示一个砖块2.需要确定检查键盘缓冲区的方法3.需要找到延时的方法4.需要确定砖块什么时候向左右码，什么时候一行码满换行5.解决彩色显示的问题   三.相关资料查找 实现图形变化功能，怎样画图https://wenku.ba">
+<meta property="og:description" content="实验报告一.题目描述编制程序当输入字母 S 时，开始在屏幕上码砖块，砖块的大小事先确定，当码到屏幕顶部或者敲击任意键时停止，砖块的颜色有差别。 二.任务难点分析1.需要确定怎样显示一个砖块2.需要确定检查键盘缓冲区的方法3.需要找到延时的方法4.需要确定砖块什么时候向左右码，什么时候一行码满换行5.解决彩色显示的问题   三.相关资料查找 实现图形变化功能，怎样画图https://wenk">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://boucii.github.io/2020/04/23/用汇编做一个叠砖块的游戏/1.png">
 <meta property="og:image" content="https://boucii.github.io/2020/04/23/用汇编做一个叠砖块的游戏/2.png">
-<meta property="og:updated_time" content="2020-04-23T07:42:40.361Z">
+<meta property="og:updated_time" content="2020-08-15T05:25:34.771Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="用汇编做一个叠砖块的游戏">
-<meta name="twitter:description" content="实验报告一.题目描述编制程序当输入字母 S 时，开始在屏幕上码砖块，砖块的大小事先确定，当码到屏幕顶部或者敲击任意键时停止，砖块的颜色有差别。 二.任务难点分析1.需要确定怎样显示一个砖块2.需要确定检查键盘缓冲区的方法3.需要找到延时的方法4.需要确定砖块什么时候向左右码，什么时候一行码满换行5.解决彩色显示的问题   三.相关资料查找 实现图形变化功能，怎样画图https://wenku.ba">
+<meta name="twitter:description" content="实验报告一.题目描述编制程序当输入字母 S 时，开始在屏幕上码砖块，砖块的大小事先确定，当码到屏幕顶部或者敲击任意键时停止，砖块的颜色有差别。 二.任务难点分析1.需要确定怎样显示一个砖块2.需要确定检查键盘缓冲区的方法3.需要找到延时的方法4.需要确定砖块什么时候向左右码，什么时候一行码满换行5.解决彩色显示的问题   三.相关资料查找 实现图形变化功能，怎样画图https://wenk">
 <meta name="twitter:image" content="https://boucii.github.io/2020/04/23/用汇编做一个叠砖块的游戏/1.png">
   
     <link rel="alternative" href="/atom.xml" title="Boucii&#39;s Blog" type="application/atom+xml">
@@ -172,7 +172,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="实验报告"><a href="#实验报告" class="headerlink" title="实验报告"></a>实验报告</h1><h2 id="一-题目描述"><a href="#一-题目描述" class="headerlink" title="一.题目描述"></a>一.题目描述</h2><p>编制程序当输入字母 S 时，开始在屏幕上码砖块，砖块的大小事先确定，当码到屏幕顶部或者敲击任意键时停止，砖块的颜色有差别。</p>
+        <a id="more"></a>  
+
+<h1 id="实验报告"><a href="#实验报告" class="headerlink" title="实验报告"></a>实验报告</h1><h2 id="一-题目描述"><a href="#一-题目描述" class="headerlink" title="一.题目描述"></a>一.题目描述</h2><p>编制程序当输入字母 S 时，开始在屏幕上码砖块，砖块的大小事先确定，当码到屏幕顶部或者敲击任意键时停止，砖块的颜色有差别。</p>
 <h2 id="二-任务难点分析"><a href="#二-任务难点分析" class="headerlink" title="二.任务难点分析"></a>二.任务难点分析</h2><p>1.需要确定怎样显示一个砖块<br>2.需要确定检查键盘缓冲区的方法<br>3.需要找到延时的方法<br>4.需要确定砖块什么时候向左右码，什么时候一行码满换行<br>5.解决彩色显示的问题  </p>
 <h2 id="三-相关资料查找"><a href="#三-相关资料查找" class="headerlink" title="三.相关资料查找"></a>三.相关资料查找</h2><ol>
 <li>实现图形变化功能，怎样画图<br><a href="https://wenku.baidu.com/view/8cbfaa3764ce0508763231126edb6f1afe007117.html" target="_blank" rel="noopener">https://wenku.baidu.com/view/8cbfaa3764ce0508763231126edb6f1afe007117.html</a></li>
@@ -487,15 +489,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">qt</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">编译原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">qt</a>
               </li>
              
               <li class="article-tag-list-item">
