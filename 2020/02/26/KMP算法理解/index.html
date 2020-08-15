@@ -8,20 +8,20 @@
   <link rel="dns-prefetch" href="https://boucii.github.io">
   <title>KMP算法理解 | Boucii&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="请至少看完kmp是怎样的步骤再往下看-_-如图所示，上面是文本，下面是模式串  都从头开始匹配，从上面是a，下面是c（的位置）开始匹配。都一直可以匹配。直到上面到了b，下面到了d的位置失去匹配这是我们只要把下面指针移到e的位置就行了 因为在next数组里 我们已经得出串A的开头一段和结尾一段都是c，都是相同的。既然我们刚刚已经验证过上面最后那一段c和下面最后那一段的c是一样的，而下面开">
+  <meta name="description" content="请至少看完kmp是怎样的步骤再往下看-_-">
 <meta name="keywords" content="Algorithm">
 <meta property="og:type" content="article">
 <meta property="og:title" content="KMP算法理解">
 <meta property="og:url" content="https://boucii.github.io/2020/02/26/KMP算法理解/index.html">
 <meta property="og:site_name" content="Boucii&#39;s Blog">
-<meta property="og:description" content="请至少看完kmp是怎样的步骤再往下看-_-如图所示，上面是文本，下面是模式串  都从头开始匹配，从上面是a，下面是c（的位置）开始匹配。都一直可以匹配。直到上面到了b，下面到了d的位置失去匹配这是我们只要把下面指针移到e的位置就行了 因为在next数组里 我们已经得出串A的开头一段和结尾一段都是c，都是相同的。既然我们刚刚已经验证过上面最后那一段c和下面最后那一段的c是一样的，而下面开">
+<meta property="og:description" content="请至少看完kmp是怎样的步骤再往下看-_-">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://boucii.github.io/2020/02/26/KMP算法理解/img_2305.png">
 <meta property="og:image" content="https://boucii.github.io/2020/02/26/KMP算法理解/fullsizerender(5).png">
-<meta property="og:updated_time" content="2020-02-26T07:55:56.418Z">
+<meta property="og:updated_time" content="2020-08-15T05:28:17.558Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="KMP算法理解">
-<meta name="twitter:description" content="请至少看完kmp是怎样的步骤再往下看-_-如图所示，上面是文本，下面是模式串  都从头开始匹配，从上面是a，下面是c（的位置）开始匹配。都一直可以匹配。直到上面到了b，下面到了d的位置失去匹配这是我们只要把下面指针移到e的位置就行了 因为在next数组里 我们已经得出串A的开头一段和结尾一段都是c，都是相同的。既然我们刚刚已经验证过上面最后那一段c和下面最后那一段的c是一样的，而下面开">
+<meta name="twitter:description" content="请至少看完kmp是怎样的步骤再往下看-_-">
 <meta name="twitter:image" content="https://boucii.github.io/2020/02/26/KMP算法理解/img_2305.png">
   
     <link rel="alternative" href="/atom.xml" title="Boucii&#39;s Blog" type="application/atom+xml">
@@ -172,10 +172,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <a id="more"></a>   
+        <p>请至少看完kmp是怎样的步骤再往下看-_-</p>
+<a id="more"></a>   
 
-
-<p>请至少看完kmp是怎样的步骤再往下看-_-<br>如图所示，上面是文本，下面是模式串</p>
+<p>如图所示，上面是文本，下面是模式串</p>
 <p><img src="//boucii.github.io/2020/02/26/KMP算法理解/img_2305.png" alt="1"></p>
 <p>都从头开始匹配，从上面是a，下面是c（的位置）开始匹配。<br>都一直可以匹配。直到上面到了b，下面到了d的位置失去匹配<br>这是我们只要把下面指针移到e的位置就行了</p>
 <p>因为在next数组里 我们已经得出串A的开头一段和结尾一段都是c，都是相同的。<br>既然我们刚刚已经验证过上面最后那一段c和下面最后那一段的c是一样的，而下面开头又有一个c，所以下面开头的那一段c和上面结尾的那一段c就自然无需验证也知道是匹配的了</p>
