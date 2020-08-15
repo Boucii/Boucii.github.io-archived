@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://boucii.github.io">
-  <title>Archives | Boucii&#39;s Blog</title>
+  <title>ucore无法调试分析 | Boucii&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Boucii&#39;s Blog">
-<meta property="og:url" content="https://boucii.github.io/archives/page/2/index.html">
+  <meta name="description" content="部分内容转载自：https://blog.csdn.net/weixin_34241036/article/details/89053065?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.channel_param&amp;amp;depth_1-utm_source=distribut">
+<meta name="keywords" content="ucore">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ucore无法调试分析">
+<meta property="og:url" content="https://boucii.github.io/2020/08/15/ucore无法调试分析/index.html">
 <meta property="og:site_name" content="Boucii&#39;s Blog">
+<meta property="og:description" content="部分内容转载自：https://blog.csdn.net/weixin_34241036/article/details/89053065?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.channel_param&amp;amp;depth_1-utm_source=distribut">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-08-15T05:22:02.467Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Boucii&#39;s Blog">
+<meta name="twitter:title" content="ucore无法调试分析">
+<meta name="twitter:description" content="部分内容转载自：https://blog.csdn.net/weixin_34241036/article/details/89053065?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.channel_param&amp;amp;depth_1-utm_source=distribut">
   
     <link rel="alternative" href="/atom.xml" title="Boucii&#39;s Blog" type="application/atom+xml">
   
@@ -144,394 +149,237 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-ucore无法调试分析" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ucore无法调试分析
+    </h1>
+  
+
+        
+        <a href="/2020/08/15/ucore无法调试分析/" class="archive-article-date">
+  	<time datetime="2020-08-15T05:21:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-15</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>部分内容转载自：<br><a href="https://blog.csdn.net/weixin_34241036/article/details/89053065?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.channel_param&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.channel_param" target="_blank" rel="noopener">https://blog.csdn.net/weixin_34241036/article/details/89053065?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.channel_param&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.channel_param</a> </p>
+<p><a href="https://zhuanlan.zhihu.com/p/56678174" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/56678174</a>  </p>
+<p>最近在看ucore，但是在lab2之后就无法调试了，网上应该有很多人和我一个问题，调试之后就会进到一个莫名其妙的函数里面<br>break到kerninit和pmminit的断点根本就是无法到达。</p>
+<p>机缘巧合看到一个学长在网上发了一个修改版本的ucore，在里面改了一些东西，添加了许多注释，我试着下载了这个版本，debug，<br>居然成功了。</p>
+<p>下面进行分析。</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">有些参考资料，大家可以先行阅读一下，对理解有着很大的帮助   </span><br><span class="line">首先，参考这一篇博客 ucore+gdb调试原理推断http://blog.sina.com.cn/s/blog_3dce1e7b0102x6t3.html  </span><br><span class="line">然后就是官方的实验指导手册了https://chyyuu.gitbooks.io/ucore_os_docs/content/lab2/lab2_3_3_5_4_maping_relations.html   </span><br><span class="line">学长的ucore:https://github.com/libinyl/lcore/tree/b6c67c7bf809f699d7ce0ed025af25d9d96c1098</span><br></pre></td></tr></table></figure>
+
+<p>用diff工具比较两个版本，主要可能有影响的地方有三处不同：<br>makefile，kernel.ld,entey.s<br>经过尝试，发现将entry.s 替换到原lab就可以调试了  </p>
+<h2 id="来看entry-s这个文件"><a href="#来看entry-s这个文件" class="headerlink" title="来看entry.s这个文件"></a>来看entry.s这个文件</h2><p>可调试版本： </p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;mmu.h&gt;</span><br><span class="line">#include &lt;memlayout.h&gt;</span><br><span class="line"></span><br><span class="line">#define REALLOC(x) (x - KERNBASE)</span><br><span class="line"></span><br><span class="line"><span class="meta">.text</span></span><br><span class="line"><span class="meta">.globl</span> kern_entry</span><br><span class="line"><span class="symbol">kern_entry:</span></span><br><span class="line"></span><br><span class="line">    # 内核入口目标: 作为内核入口点, 建立好 boot 阶段的映射关系,把虚拟内存 [<span class="number">0</span>, 4M)和[KERNBASE, KERNBASE+4M)都映射到物理内存[<span class="number">0</span>, 4M)上.</span><br><span class="line">    # 原因: </span><br><span class="line">    #       <span class="number">0</span>) bootloader 建立的是临时的偏移式分段虚拟地址(bootmain.c, 几处&amp; <span class="number">0xFFFFFF</span>),现在转化为由 MMU 管理的真正的地址翻译,</span><br><span class="line">    #       <span class="number">1</span>) 高地址映射:内核运行期地址, 起始于 KERNBASE.</span><br><span class="line">    #       <span class="number">2</span>) 低地址映射: 在 movl %eax, %cr0 之后还有几个指令需要执行,如果不映射的话就访问不到了.</span><br><span class="line"></span><br><span class="line">    # 初始化内核环境的页表</span><br><span class="line">    movl $REALLOC(__boot_pgdir), %eax</span><br><span class="line">    movl %eax, %cr3</span><br><span class="line"></span><br><span class="line">    # 使能 paging.</span><br><span class="line">    # <span class="built_in">CR0</span>中包含了<span class="number">6</span>个预定义标志，<span class="number">0</span>位是保护允许位PE(Protedted Enable)，用于启动保护模式，如果PE位置<span class="number">1</span>，则保护模式启动. </span><br><span class="line">    #值得注意的是，bootasm有一段相似的代码，与bootasm不同，bootasm只打开了保护模式，这个打开了<span class="built_in">cr0</span>的许多东西包括分页，剩下打开的一些和协处理器相关，表示打开了协处理器及相关设置，但是没有打开ts和em（task switch和 wmulation）（协处理器应该可设可不设）</span><br><span class="line">    #所以其实结果就是打开分页</span><br><span class="line">    movl %cr0, %eax</span><br><span class="line">    orl $(CR0_PE | CR0_PG | CR0_AM | CR0_WP | CR0_NE | CR0_TS | CR0_EM | CR0_MP), %eax</span><br><span class="line">    andl $~(CR0_TS | CR0_EM), %eax</span><br><span class="line">    movl %eax, %cr0</span><br><span class="line"></span><br><span class="line">    # update <span class="built_in">eip</span></span><br><span class="line">    # now, <span class="built_in">eip</span> = <span class="number">0x1</span>.....</span><br><span class="line">    # 执行下面这条指令时,虽然访问的仍然是处于[<span class="number">0</span>,4MB)的空间,但已经是虚拟地址了,会经过页表的查找.如果不把[<span class="number">0</span>,4MB)-&gt;[<span class="number">0</span>,4MB),则这几条指令无法执行.</span><br><span class="line">    # 为了更新 <span class="built_in">eip</span></span><br><span class="line">    leal next, %eax</span><br><span class="line">    # set <span class="built_in">eip</span> = KERNBASE + <span class="number">0x1</span>.....</span><br><span class="line">    <span class="keyword">jmp</span> *%eax</span><br><span class="line"><span class="symbol">next:</span></span><br><span class="line">    # <span class="keyword">jmp</span> 过来之后,</span><br><span class="line">    # 取消虚拟地址 <span class="number">0</span> ~ 4M 的映射,即将 __boot_pgdir 置零.</span><br><span class="line">    xorl %eax, %eax</span><br><span class="line">    movl %eax, __boot_pgdir</span><br><span class="line"></span><br><span class="line">    # set <span class="built_in">ebp</span>, <span class="built_in">esp</span></span><br><span class="line">    movl <span class="number">$0</span>x0, %ebp</span><br><span class="line"></span><br><span class="line">    # 内核栈范围是 [bootstack, bootstacktop)</span><br><span class="line">    # 内核栈大小是 KSTACKSIZE (8KB), 在memlayout.h 中定义.</span><br><span class="line">    movl $bootstacktop, %esp</span><br><span class="line"></span><br><span class="line">    # 内核栈就绪, 调用首个 C 函数</span><br><span class="line">    <span class="keyword">call</span> kern_init</span><br></pre></td></tr></table></figure>
+
+<p>不可调试版，即官方github的版本 </p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;mmu.h&gt;</span><br><span class="line">#include &lt;memlayout.h&gt;</span><br><span class="line"></span><br><span class="line">#define REALLOC(x) (x - KERNBASE)</span><br><span class="line"></span><br><span class="line"><span class="meta">.text</span></span><br><span class="line"><span class="meta">.globl</span> kern_entry</span><br><span class="line"><span class="symbol">kern_entry:</span></span><br><span class="line">    # reload temperate gdt (second time) to remap all physical memory</span><br><span class="line">    # virtual_addr <span class="number">0</span>~4G=linear_addr&amp;physical_addr -KERNBASE~4G-KERNBASE </span><br><span class="line">    #加载段表，建立映射，段表在bootasm.s中，首先是一个<span class="number">0x17</span>，之后是段表</span><br><span class="line">    #代码段地址拷贝到<span class="built_in">ds</span> <span class="built_in">es</span> <span class="built_in">ss</span></span><br><span class="line">    #<span class="keyword">lgdt</span> __gdtdesc-KERNBASE</span><br><span class="line">    <span class="keyword">lgdt</span> REALLOC(__gdtdesc)</span><br><span class="line">    movl $KERNEL_DS, %eax</span><br><span class="line">    movw %ax, %ds</span><br><span class="line">    movw %ax, %es</span><br><span class="line">    movw %ax, %ss</span><br><span class="line"></span><br><span class="line">    #执行代码段的relocated</span><br><span class="line">    ljmp $KERNEL_CS, $relocated</span><br><span class="line"></span><br><span class="line"><span class="symbol">relocated:</span></span><br><span class="line"></span><br><span class="line">    # set <span class="built_in">ebp</span>, <span class="built_in">esp</span></span><br><span class="line">    movl <span class="number">$0</span>x0, %ebp</span><br><span class="line">    #初始化内核堆栈</span><br><span class="line">    # the kernel stack region is from bootstack -- bootstacktop,</span><br><span class="line">    # the kernel stack size is KSTACKSIZE (8KB)defined <span class="keyword">in</span> memlayout.h</span><br><span class="line">    movl $bootstacktop, %esp</span><br><span class="line">    # now kernel stack is ready , <span class="keyword">call</span> the first C function</span><br><span class="line">    <span class="keyword">call</span> kern_init</span><br><span class="line"></span><br><span class="line"># should never get here</span><br></pre></td></tr></table></figure>
+
+<h2 id="我们先来看可以调试的版本，对照下面实验指导书的原文摘录（上文给出的link）："><a href="#我们先来看可以调试的版本，对照下面实验指导书的原文摘录（上文给出的link）：" class="headerlink" title="我们先来看可以调试的版本，对照下面实验指导书的原文摘录（上文给出的link）："></a>我们先来看可以调试的版本，对照下面实验指导书的原文摘录（上文给出的link）：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">第二个阶段（创建初始页目录表，开启分页模式）从kern_entry函数开始，到pmm_init函数被执行之前。</span><br><span class="line"></span><br><span class="line">编译好的ucore自带了一个设置好的页目录表和相应的页表，将0~4M的线性地址一一映射到物理地址。</span><br><span class="line"></span><br><span class="line">了解了一一映射的二级页表结构后，接下来就要使能分页机制了，这主要是通过几条汇编指令（在kern/init/entry.S中）实现的，主要做了两件事：</span><br><span class="line"></span><br><span class="line">通过movl %eax, %cr3指令把页目录表的起始地址存入CR3寄存器中；</span><br><span class="line">通过movl %eax, %cr0指令把cr0中的CR0_PG标志位设置上。</span><br><span class="line">执行完这几条指令后，计算机系统进入了分页模式！虚拟地址、线性地址以及物理地址之间的临时映射关系为：</span><br><span class="line"></span><br><span class="line"> lab2 stage 2 before:</span><br><span class="line">     virt addr = linear addr = phy addr # 线性地址在0~4MB之内三者的映射关系</span><br><span class="line">     virt addr = linear addr = phy addr + 0xC0000000 # 线性地址在0xC0000000~0xC0000000+4MB之内三者的映射关系</span><br><span class="line">可以看到，其实仅仅比第一个阶段增加了下面一行的0xC0000000偏移的映射，并且作用范围缩小到了0~4M。在下一个节点，会将作用范围继续扩充到0~KMEMSIZE。</span><br><span class="line"></span><br><span class="line">实际上这种映射限制了内核的大小。当内核大小超过预期的4MB （实际上是3M，因为内核从 0x100000开始编址）就可能导致打开分页之后内核crash，在某些试验中，也的确出现了这种情况。解决方法同样简单，就是正确填充更多的页目录项即可。</span><br><span class="line"></span><br><span class="line">此时的内核（EIP）还在0~4M的低虚拟地址区域运行，而在之后，这个区域的虚拟内存是要给用户程序使用的。为此，需要使用一个绝对跳转来使内核跳转到高虚拟地址（代码在kern/init/entry.S中）：</span><br><span class="line"></span><br><span class="line">    # update eip</span><br><span class="line">    # now, eip = 0x1.....</span><br><span class="line">    leal next, %eax</span><br><span class="line">    # set eip = KERNBASE + 0x1.....</span><br><span class="line">    jmp *%eax</span><br><span class="line">next:</span><br><span class="line">跳转完毕后，通过把boot_pgdir[0]对应的第一个页目录表项（0~4MB）清零来取消了临时的页映射关系：</span><br><span class="line"></span><br><span class="line">    # unmap va 0 ~ 4M, it&apos;s temporary mapping</span><br><span class="line">    xorl %eax, %eax</span><br><span class="line">    movl %eax, __boot_pgdir</span><br><span class="line">最终，离开这个阶段时，虚拟地址、线性地址以及物理地址之间的映射关系为：</span><br><span class="line"></span><br><span class="line"> lab2 stage 2: virt addr = linear addr = phy addr + 0xC0000000 # 线性地址在0~4MB之内三者的映射关系</span><br><span class="line">总结来看，这一阶段的目的就是更新映射关系的同时将运行中的内核（EIP）从低虚拟地址“迁移”到高虚拟地址，而不造成伤害。</span><br><span class="line"></span><br><span class="line">不过，这还不是我们期望的映射关系，因为它仅仅映射了0~4MB。对于段表而言，也缺少了运行ucore所需的用户态段描述符和TSS（段）描述符相应表项。</span><br></pre></td></tr></table></figure>
+
+<p>很明显，上面那个代码是和实验指导书的版本是匹配的，但是下面（ucore正式版）的代码明显和指导书不匹配，这就很奇怪了<br>因为从各种线索来看坊间确实流传着两个ucore<br>经过github上commit的记录，可以肯定的是在14年这个代码就是下面这个版本（简略版）了。<br>但是知乎上也流传着这个正确的版本<br>那么为什么呢？ （估计是历史原因）<br>抛开这个疑问，我们先来分析下面的代码 </p>
+<h2 id="下面的代码不是三个阶段-而是四个阶段-分析大部分来自于文章开始的链接"><a href="#下面的代码不是三个阶段-而是四个阶段-分析大部分来自于文章开始的链接" class="headerlink" title="下面的代码不是三个阶段 而是四个阶段(分析大部分来自于文章开始的链接)"></a>下面的代码不是三个阶段 而是四个阶段(分析大部分来自于文章开始的链接)</h2><p>第一阶段 从bootloader到entry.s的kern_entry前<br>在bootasm中，有一句</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">lgdt</span> desc</span><br></pre></td></tr></table></figure>
+
+<p>之后有 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># Bootstrap GDT</span><br><span class="line">.p2align 2                                          # force 4 byte alignment</span><br><span class="line">gdt:</span><br><span class="line">    SEG_NULLASM                                     # null seg</span><br><span class="line">    SEG_ASM(STA_X|STA_R, 0x0, 0xffffffff)           # code seg for bootloader and kernel</span><br><span class="line">    SEG_ASM(STA_W, 0x0, 0xffffffff)                 # data seg for bootloader and kernel</span><br><span class="line"></span><br><span class="line">gdtdesc:#真正的段表</span><br><span class="line">    .word 0x17                                      # sizeof(gdt) - 1</span><br><span class="line">    .long gdt                                       # address gdt</span><br></pre></td></tr></table></figure>
+
+<p>#可见，在这个阶段，用seg_asm把代码段和数据段全部映射到了0的虚拟地址上<br>指导书上写“ucore中段式管理只将逻辑地址不加转换的直接映射成线性地址”，所以 他们是相等的，而这时候又没有开启分页，所以<br>虚拟=线性=物理<br>第二阶段<br>在entry.s的kern_entry到pmm.c的enable_paging<br>在bootmain.c这个文件：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#define ELFHDR          ((struct elfhdr *)0x10000)      // scratch space</span><br></pre></td></tr></table></figure>
+
+<p>在kernel.ld中，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/* Load the kernel at this address: &quot;.&quot; means the current address */</span><br><span class="line">    . = 0xC0100000;</span><br></pre></td></tr></table></figure>
+
+<p>所以kernel是被放在物理地址0x1000的地方，链接在0xC0100000的地方<br>``virt addr = linear addr = phy addr<br>所以这时的物理地址和连接地址不匹配，访问会出错<br>所以要重新映射gdt<br>在entry.s中  </p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#define REALLOC(x) (x - KERNBASE)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">lgdt</span> REALLOC(__gdtdesc)</span><br><span class="line"> </span><br><span class="line">...</span><br><span class="line"> </span><br><span class="line"><span class="symbol">__gdt:</span></span><br><span class="line">    SEG_NULL</span><br><span class="line">    SEG_ASM(STA_X | STA_R, - KERNBASE, <span class="number">0xFFFFFFFF</span>)      # code <span class="meta">segment</span></span><br><span class="line">    SEG_ASM(STA_W, - KERNBASE, <span class="number">0xFFFFFFFF</span>)              # data <span class="meta">segment</span></span><br><span class="line"><span class="symbol">__gdtdesc:</span></span><br><span class="line"><span class="meta">    .word</span> <span class="number">0x17</span>                                          # sizeof(__gdt) - <span class="number">1</span></span><br><span class="line"><span class="meta">    .long</span> REALLOC(__gdt)</span><br></pre></td></tr></table></figure>
+
+<p>此时段的起始地址由0变成了-KERNBASE。因此，在这个阶段， 地址映射关系为：</p>
+<p><code>virt addr - 0xC0000000 = linear addr = phy addr</code></p>
+<p>第三阶段<br>这个阶段是从pmm.c的enable_paging()到pmm.c的gdt_init()。<br> 我们开启了页机制， 并且在boot_map_segment()中将线性地址按照如下规则进行映射：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">linear addr - 0xC0000000 = phy addr</span><br></pre></td></tr></table></figure>
+
+<p>这就导致此时虚拟地址，线性地址和物理地址之间的关系如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">virt addr = linear addr + 0xC0000000 = phy addr + 2 * 0xC0000000</span><br></pre></td></tr></table></figure>
+
+<p>这肯定是错误的，因为我们根本不能通过虚拟地址获取正确的物理地址， 我们可以继续用之前例子。我们还是要访问虚拟地址0xC0100000， 则其线性地址就是0x00100000，然后通过页映射后的物理地址是0x80100000。 我们本来是要访问0x00100000，却访问了0x80100000， 因此我们需要想办法来解决这个问题，即要让映射还是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">virt addr - 0xC0000000 = linear addr = phy addr</span><br></pre></td></tr></table></figure>
+
+<p>这个和第一阶段到第二阶段的转变类似，都是需要调整映射关系。为了解决这个问题, ucore使用了一个小技巧：<br>在boot_map_segment()中， 线性地址0xC0000000-0xC0400000(4MB)对应的物理地址是0x00000000-0x00400000(4MB)。如果我们还想使用虚拟地址0xC0000000来映射物理地址0x00000000， 也就是线性地址0x00000000来映射物理地址0x00000000，我们可以这么做：<br>在开启页映射机制前， 将页目录表中的第0项和第0b1100_0000_00设置为相同的映射(boot_pgdir[0] = boot_pgdir[PDX(KERNBASE)])，这样，当虚拟地址是0xC0000000时， 其对应的线性地址就是0x00000000， 然后通过页表可以知道其物理地址也是0x00000000。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">举个例子，比如enable_paging()后应该运行gdt_init()，gdt_init()的虚拟地址是0xC01033CF，那么其对应的线性地址就是0x001033CF，它将映射到页目录表的第一项。并且这个线性地址和0xC01033CF最终是指向同一个物理页，它们对应的物理地址是0x001033CF。而根据gdt_init()的虚拟地址和链接地址可知，gdt_init()的物理地址就是0x001033CF，因此通过这种地址变换后，我们可以正确的取到之后的指令。</span><br></pre></td></tr></table></figure>
+
+<p>第四阶段<br>这一阶段开始于pmm.c的gdt_init()。gdt_init()重新设置GDT, 新的GDT又将段的起始地址变为了0. 调整后, 地址的映射关系终于由</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">virt addr = linear addr + 0xC0000000 = phy addr + 2 * 0xC0000000</span><br></pre></td></tr></table></figure>
+
+<p>变回了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">virt addr = linear addr = phy addr + 0xC0000000</span><br></pre></td></tr></table></figure>
+
+<p>同时，我们把目录表中的第0项设置为0，这样就把之前的这种映射关系解除了。通过这几个步骤的转换， 我们终于在开启页映射机制后将映射关系设置正确了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">最后发现实验指导书也有两个版本，分别对应两种代码 我也是惊了（gitbook上对应的是第一种代码，有三个阶段）另一个找到的pdf版本里面就是四个阶段</span><br></pre></td></tr></table></figure>
+
+<h2 id="结论："><a href="#结论：" class="headerlink" title="结论："></a>结论：</h2><p>由此可见，第一个版本的代码在第二阶段就建立了正确的映射，所以在建立完成之后就可正常的调试，第二个版本的代码直到init.c里面的pmm_init才建立正确的映射，这时才能进行调试（亲测break到这之后是可以继续运行的）</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你看我的博客<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/19/graph/" class="archive-article-date">
-  	<time datetime="2019-11-19T14:23:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/19/graph/">graph initiation and prim and DijKstra</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Algorithm</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">ucore</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://boucii.github.io/2020/08/15/ucore无法调试分析/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/17/二叉树的图形化显示算法/" class="archive-article-date">
-  	<time datetime="2019-11-17T15:46:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-17</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/04/23/用汇编做一个叠砖块的游戏/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">用汇编做一个叠砖块的游戏</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/17/二叉树的图形化显示算法/">二叉树的图形化显示算法</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Algorithm</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/10/集合的整数表示(位运算)/" class="archive-article-date">
-  	<time datetime="2019-11-10T13:09:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/10/集合的整数表示(位运算)/">集合的整数表示</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Algorithm</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/09/PathSumPT-1/" class="archive-article-date">
-  	<time datetime="2019-11-09T08:33:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/09/PathSumPT-1/">PathSumPT.1</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Algorithm</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/09/Leetcode二叉树C++调试模板/" class="archive-article-date">
-  	<time datetime="2019-11-09T06:54:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/09/Leetcode二叉树C++调试模板/">Leetcode二叉树C++调试模板</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Algorithm</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-max">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/06/Max Sum of Average/" class="archive-article-date">
-  	<time datetime="2019-11-06T10:12:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/06/Max Sum of Average/">Max Sum of Average</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Algorithm</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/23/Multithread-Java/" class="archive-article-date">
-  	<time datetime="2019-09-23T14:14:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/23/Multithread-Java/">Multithread Java</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/18/格式化输入输出/" class="archive-article-date">
-  	<time datetime="2019-08-18T04:54:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/18/格式化输入输出/">格式化输入输出</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/16/const的辨析/" class="archive-article-date">
-  	<time datetime="2019-08-16T05:12:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/16/const的辨析/">const的辨析</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/12/hello-world/" class="archive-article-date">
-  	<time datetime="2019-08-12T02:13:32.407Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/12/hello-world/">Hello World</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span>
-    </nav>
+  <div id="gitment-ctn"></div> 
+<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: "https://boucii.github.io/2020/08/15/ucore无法调试分析/",
+  owner: 'Boucii',
+  repo: 'boucii.github.io',
+  oauth: {
+    client_id: '5706a284f1eeef16913d',
+    client_secret: '140159ef67e11729c7a03660716133209d248291',
+  },
+})
+gitment.render('gitment-ctn')
+</script>
   
 
 
@@ -556,8 +404,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
